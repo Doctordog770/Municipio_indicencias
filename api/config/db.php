@@ -13,9 +13,4 @@ if($conexion->connect_errno)
     die('error al conectarse con la base de datos');
 }
 
-
-
-
-
-
 ?>

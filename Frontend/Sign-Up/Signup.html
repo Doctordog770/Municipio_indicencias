@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="../../Backend/api/augh/Sing_Up_Code.php" method="post">
+    <form action="../../api/augh/Sing_Up_Code.php" id="form">
         <section class="titulo">
             <label for="">Registrarse</label>
         </section>
@@ -36,9 +36,12 @@
             <input class="input" type="password" name="Contraseña2" required>
         </section>
         <section>
-            <input class="enviar" type="submit" value="Enviar">
+            <input class="enviar" type="submit" value="Enviar" name="Enviar">
         </section>
-        <p class=""></p>
+        <section>
+            <p id="error" class="error"></p>
+        </section>
+        <script src="../js/augh.js"></script>
     </form>
 </body>
 </html>
