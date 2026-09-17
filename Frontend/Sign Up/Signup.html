@@ -7,37 +7,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="" method="post">
+    <form action="../../Backend/api/augh/Sing_Up_Code.php" method="post">
         <section class="titulo">
             <label for="">Registrarse</label>
         </section>
         <section>
             <label class="texto">Ingrese Nombre</label>
-            <input class="input" type="text">
+            <input class="input" type="text" name="Nombre" required>
         </section>
         <section>
             <label class="texto">Ingrese Apellido</label>
-            <input class="input" type="text">
+            <input class="input" type="text" name="Apellido" required>
         <section>
         <section>
             <label class="texto">Dni</label>
-            <input class="input" type="number">
+            <input class="input" type="number" name="Dni" required>
         <section>
         <section>
             <label class="texto">Ingrese Gmail</label>
-            <input class="input" type="email" name="" id="">
+            <input class="input" type="email" name="Gmail" required>
         </section>
         <section>
             <label class="texto">Ingrese Contraseña</label>
-            <input class="input" type="password" name="" id="">
+            <input class="input" type="password" name="Contraseña" required>
         </section>
         <section>
             <label class="texto">Ingrese nuevamente la Contraseña</label>
-            <input class="input" type="password">
+            <input class="input" type="password" name="Contraseña2" required>
         </section>
         <section>
             <input class="enviar" type="submit" value="Enviar">
         </section>
+        <p class=""></p>
     </form>
 </body>
 </html>
