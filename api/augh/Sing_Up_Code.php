@@ -8,6 +8,7 @@ $Dni = $_POST["Dni"] ?? null;
 $Gmail = $_POST["Gmail"] ?? null;
 $Contraseña = $_POST["Contraseña"] ?? null;
 $Confirmar_Contraseña = $_POST["Contraseña2"] ?? null;
+$localidad = $_POST["localidad"] ?? null;
 
 $Contraseña = trim($Contraseña);
 $Confirmar_Contraseña = trim($Confirmar_Contraseña);
@@ -20,8 +21,8 @@ if (strlen($Contraseña) >= 15) {
 
         $Contraseña = password_hash($Contraseña, PASSWORD_DEFAULT);
 
-        $consulta = $conexion->prepare("SELECT COUNT(*) AS TOTAL FROM Usuarios WHERE GMAIL = ?");
-        $consulta->bind_param('s', $Gmail);
+        $consulta = $conexion->prepare("SELECT COUNT(*) AS TOTAL FROM Ciudadanos WHERE DNI  = ? ");
+        $consulta->bind_param('s', $Dni);
         $consulta->execute();
         $resultado = $consulta->get_result();
         $fila = $resultado->fetch_assoc();
@@ -29,14 +30,32 @@ if (strlen($Contraseña) >= 15) {
         if ($fila['TOTAL'] > 0) {
             echo json_encode([
                 "ok" => false,
-                "mensaje" => "este gmail lo esta usando otra cuenta"
+                "mensaje" => "este dni ya esta en nuestra base de datos"
             ]);
             exit;
+        } 
+        else 
+        {
+            $consulta->close();
+
+            $consulta = $conexion->prepare("SELECT COUNT(*) AS TOTAL Usuarios WHERE GMAIL = ?");
+
+            $consulta->bind_param('s', $Gmail);
+
+            $consulta->execute();
+
+            $resultado = $consulta->get_result();
+
+            $fila = $resultado->fetch_assoc();
+
+            
         }
 
-        // Acá todavía falta el INSERT real a la base de datos.
-        // Cuando lo hagas, el echo de éxito de abajo tiene que ir
-        // DESPUÉS de que el insert haya salido bien.
+
+
+
+
+        
 
         echo json_encode([
             "ok" => true,
