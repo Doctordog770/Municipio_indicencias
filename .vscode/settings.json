@@ -15,5 +15,6 @@
             "name": "municipio_indicencias_db",
             "askForPassword": true
         }
-    ]
+    ],
+    "php.version": "8.2"
 }

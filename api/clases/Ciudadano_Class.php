@@ -1,6 +1,6 @@
 <?php
 
-class Ciudadanos {
+class Ciudadanos_Class {
     private string $Nombre {
         set => trim($value);
         get => $this->Nombre;
@@ -10,7 +10,7 @@ class Ciudadanos {
         get => $this->Apellido;
     }
     
-    private string $dni {
+    private int $dni {
         set => trim($value);
         get => $this->dni;
     }
@@ -25,7 +25,7 @@ class Ciudadanos {
         get => $this->localidad;
     }
 
-    function __construct($Nombre,$Apellido,$dni,$telefono,$localidad){
+    public function __construct($Nombre,$Apellido,$dni,$telefono,$localidad){
         $this->Nombre = $Nombre;
         $this->Apellido = $Apellido;
         $this->dni = $dni;
@@ -33,13 +33,19 @@ class Ciudadanos {
         $this->localidad = $localidad;
     }
 
-    public function guardar(){ 
+    public function guardar_datos(){ 
         
         $conexion = Conexion_Class::get_conexion();
 
         $consulta = $conexion->prepare("INSERT INTO Ciudadanos(NOMBRE,APELLIDO,DNI,TELEFONO,LOCALIDAD) VALUES (?,?,?,?,?)");
 
-        $consulta->bind_param('sssss', $this->Nombre,$this->Apellido,$this->dni,$this->telefono,$this->localidad);
+        $Nombre = $this->Nombre;
+        $Apellido = $this->Apellido;
+        $dni = $this->dni;
+        $telefono = $this->telefono;
+        $localidad = $this->localidad;
+
+        $consulta->bind_param('ssiss', $Nombre,$Apellido,$dni,$telefono,$localidad);
 
         $consulta->execute();
 
