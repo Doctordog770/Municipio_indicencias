@@ -28,9 +28,17 @@ class Conexion_Class{
 
     public static function get_conexion(): ?mysqli
     {
+        
         if(is_null(self::$conexion)){
+
+            $datos = new self();
             
-            self::$conexion = new mysqli(self::$DB_HOST,self::$DB_USER,self::$DB_PASSWORD,self::$DB_NAME);
+            self::$conexion = new mysqli(
+                $datos->DB_HOST,
+                $datos->DB_USER,
+                $datos->DB_PASSWORD,
+                $datos->DB_NAME
+            );
 
             if(self::$conexion->connect_errno){
                 echo json_encode([

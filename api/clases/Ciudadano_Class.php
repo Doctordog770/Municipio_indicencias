@@ -54,6 +54,10 @@ class Ciudadanos_Class {
         return $id;
     }
 
+    public static function dni_duplicado(){
+        return 0;
+    }
+
     
 
 }
