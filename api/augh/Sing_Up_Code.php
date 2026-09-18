@@ -10,14 +10,15 @@ $Nombre = $_POST["Nombre"] ?? null;
 $Apellido = $_POST["Apellido"] ?? null;
 $Dni = $_POST["Dni"] ?? null;
 $Gmail = $_POST["Gmail"] ?? null;
-$Contraseña = $_POST["Contraseña"] ?? null;
-$Confirmar_Contraseña = $_POST["Contraseña2"] ?? null;
+$Contrasena = $_POST["Contrasena"] ?? null;
+echo json_encode($_POST);
+$Confirmar_Contrasena = $_POST["Contrasena2"] ?? null;
 $localidad = $_POST["localidad"] ?? null;
 $telefono = $_POST["telefono"] ?? null;
 
-function validar_datos($Contraseña,$Confirmar_Contraseña,$Dni,$Gmail){
-    if(strlen($Contraseña) >= 8){
-        if($Contraseña == $Confirmar_Contraseña){
+function validar_datos($Contrasena,$Confirmar_Contrasena,$Dni,$Gmail){
+    if(strlen($Contrasena) >= 8){
+        if($Contrasena == $Confirmar_Contrasena){
             if(strlen($Dni)=== 7 or strlen($Dni)=== 8){
                 $resultado = Usuarios_Class::gmail_duplicado($Gmail);
                 if($resultado){
@@ -53,15 +54,15 @@ function validar_datos($Contraseña,$Confirmar_Contraseña,$Dni,$Gmail){
     }
 }
 
-function logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contraseña,$localidad,$telefono){
+function logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contrasena,$localidad,$telefono){
 
     $Ciudadano = new Ciudadanos_Class($Nombre,$Apellido,$Dni,$telefono,$localidad);
 
     $id = $Ciudadano->guardar_datos();
 
-    $Contraseña = password_hash($Contraseña,PASSWORD_DEFAULT);
+    $Contrasena = password_hash($Contrasena,PASSWORD_DEFAULT);
 
-    $Usuario = new Usuarios_Class($Gmail,$Contraseña,$id);
+    $Usuario = new Usuarios_Class($Gmail,$Contrasena,$id);
 
     $Usuario->guardar_datos();
 
@@ -72,10 +73,10 @@ function logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contraseña,$localidad,$
     exit;
 }
 
-$estado = validar_datos($Contraseña,$Confirmar_Contraseña,$Dni,$Gmail);
+$estado = validar_datos($Contrasena,$Confirmar_Contrasena,$Dni,$Gmail);
 
 if($estado){
-    logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contraseña,$localidad,$telefono);
+    logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contrasena,$localidad,$telefono);
 }
 
 
