@@ -11,7 +11,6 @@ $Apellido = $_POST["Apellido"] ?? null;
 $Dni = $_POST["Dni"] ?? null;
 $Gmail = $_POST["Gmail"] ?? null;
 $Contrasena = $_POST["Contrasena"] ?? null;
-echo json_encode($_POST);
 $Confirmar_Contrasena = $_POST["Contrasena2"] ?? null;
 $localidad = $_POST["localidad"] ?? null;
 $telefono = $_POST["telefono"] ?? null;
@@ -71,11 +70,4 @@ $estado = validar_datos($Contrasena,$Confirmar_Contrasena,$Dni,$Gmail);
 if($estado){
     logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contrasena,$localidad,$telefono);
 } 
-
-
 ?>
-
-
-
-
-

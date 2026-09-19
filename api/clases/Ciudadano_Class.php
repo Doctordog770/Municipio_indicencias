@@ -57,11 +57,5 @@ class Ciudadanos_Class {
     public static function dni_duplicado(){
         return 0;
     }
-
-    
-
 }
-
-
-
 ?>

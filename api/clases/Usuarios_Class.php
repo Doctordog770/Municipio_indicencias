@@ -70,9 +70,44 @@ class Usuarios_Class{
         return false;
 
     }
+
+    public static function iniciar_sesion($gmail,$Contrasena) : array
+    {
+        
+        $conexion = Conexion_Class::get_conexion();
+
+        $consulta = $conexion->prepare("SELECT * FROM Usuarios WHERE GMAIL = ? ");
+
+        $consulta->bind_param('s', $gmail);
+
+        $consulta->execute();
+
+        $resultado = $consulta->get_result();
+
+        $usuario = $resultado->fetch_assoc();
+
+        if(!$usuario)
+        {
+            return array(
+                "ok" => false,
+                "mensaje" => "este gmail no lo esta usando ningun usuario"
+            );
+        }
+
+        if(!password_verify($Contrasena,$usuario['CONTRASENA'])){
+            return array(
+                "ok" => false,
+                "mensaje" => "Contraseña incorrecta"
+            );
+        }
+
+        return array(
+            "ok" => true,
+            "gmail" => $usuario["GMAIL"],
+            "rol" => $usuario["ROL"],
+            "id" => $usuario["ID_USUARIO"]
+        );
+
+    }
 }
-
-
-
-
 ?>
