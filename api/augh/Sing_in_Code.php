@@ -1,7 +1,8 @@
 <?php
 
-require_once("../clases/Ciudadano_Class.php");
+require_once("../clases/Conexion_Class.php");
 require_once("../clases/Usuarios_Class.php");
+require_once("../clases/JWT_Class.php");
 
 $gmail = $_POST["gmail"] ?? null;
 $contrasena = $_POST["contrasena"] ?? null;
@@ -23,11 +24,14 @@ if(!$respuesta["ok"]){
     ]);
     exit;
 } else {
+    $token = JWT_Class::generar($respuesta["ID_USUARIO"],$respuesta["ROL"]);
     echo json_encode([
         "ok" => true,
-        "gmail" => $respuesta["GMAIL"],
-        "rol" => $respuesta["ROL"],
-        "id" => $respuesta["ID_USUARIO"]
+        "GMAIL" => $respuesta["GMAIL"],
+        "ROL" => $respuesta["ROL"],
+        "ID_USUARIO" => $respuesta["ID_USUARIO"],
+        "TOKEN" => $token,
+        "mensaje" => "login con exito!"
     ]);
     exit;
 }

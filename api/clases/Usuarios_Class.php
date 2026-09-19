@@ -103,9 +103,9 @@ class Usuarios_Class{
 
         return array(
             "ok" => true,
-            "gmail" => $usuario["GMAIL"],
-            "rol" => $usuario["ROL"],
-            "id" => $usuario["ID_USUARIO"]
+            "GMAIL" => $usuario["GMAIL"],
+            "ROL" => $usuario["ROL"],
+            "ID_USUARIO" => $usuario["ID_USUARIO"]
         );
 
     }
