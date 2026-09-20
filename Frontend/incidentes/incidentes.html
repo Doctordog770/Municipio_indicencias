@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        <section>
+            <label>TIPO_INCIDENTE</label>
+            <select name="tipo_incidente">
+                <option value="Bache / pavimento dañado">Bache / pavimento dañado</option>
+                <option value="Luminaria / alumbrado público">Luminaria / alumbrado público</option>
+                <option value="Basura / residuos">Basura / residuos</option>
+                <option value="Semáforo">Semáforo</option>
+                <option value="Árbol / poda">Árbol / poda</option>
+                <option value="Agua / desagüe">Agua / desagüe</option>
+                <option value="Espacio verde / plaza">Espacio verde / plaza</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </section>
+        <section>
+            <label>DETALLES</label>
+            <textarea maxlength="1000" style="width: 400px; height: 180px; padding-top: 10px; resize: none; vertical-align: top;" name="detalles"></textarea>
+        </section>
+        <section>
+            <label>ubicacion</label>
+            <select name="ubicacion">
+                <option value="Morón">Morón</option>
+                <option value="Castelar">Castelar</option>
+                <option value="Haedo">Haedo</option>
+                <option value="El Palomar">El Palomar</option>
+                <option value="Villa Sarmiento">Villa Sarmiento</option>
+        </section>
+        <section>
+            <input type="submit" value="crear incidente">
+        </section>
+    </form>
+</body>
+</html>

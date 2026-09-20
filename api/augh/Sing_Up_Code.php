@@ -14,6 +14,8 @@ $Contrasena = $_POST["Contrasena"] ?? null;
 $Confirmar_Contrasena = $_POST["Contrasena2"] ?? null;
 $localidad = $_POST["localidad"] ?? null;
 $telefono = $_POST["telefono"] ?? null;
+$direccion = $_POST["direccion"] ?? null;
+$codigo_postal = $_POST["codigo_postal"] ?? null;
 
 function validar_datos($Contrasena,$Confirmar_Contrasena,$Dni,$Gmail) : bool
 {
@@ -46,9 +48,9 @@ function validar_datos($Contrasena,$Confirmar_Contrasena,$Dni,$Gmail) : bool
     return false;
 }
 
-function logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contrasena,$localidad,$telefono){
+function logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contrasena,$localidad,$telefono,$codigo_postal,$direccion){
 
-    $Ciudadano = new Ciudadanos_Class($Nombre,$Apellido,$Dni,$telefono,$localidad);
+    $Ciudadano = new Ciudadanos_Class($Nombre,$Apellido,$Dni,$telefono,$localidad,$codigo_postal,$direccion);
 
     $id = $Ciudadano->guardar_datos();
 
@@ -68,6 +70,6 @@ function logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contrasena,$localidad,$t
 $estado = validar_datos($Contrasena,$Confirmar_Contrasena,$Dni,$Gmail);
 
 if($estado){
-    logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contrasena,$localidad,$telefono);
+    logica_register($Nombre,$Apellido,$Dni,$Gmail,$Contrasena,$localidad,$telefono,$codigo_postal,$direccion);
 } 
 ?>

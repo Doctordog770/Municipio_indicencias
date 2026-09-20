@@ -25,27 +25,41 @@ class Ciudadanos_Class {
         get => $this->localidad;
     }
 
-    public function __construct($Nombre,$Apellido,$dni,$telefono,$localidad){
+    private int $codigo_postal {
+        set => trim($value);
+        get => $this->codigo_postal;
+    }
+
+    private string $direccion {
+        set => trim($value);
+        get => $this->direccion;
+    }
+
+    public function __construct($Nombre,$Apellido,$dni,$telefono,$localidad,$codigo_postal,$direccion){
         $this->Nombre = $Nombre;
         $this->Apellido = $Apellido;
         $this->dni = $dni;
         $this->telefono = $telefono;
         $this->localidad = $localidad;
+        $this->codigo_postal = $codigo_postal;
+        $this->direccion = $direccion;
     }
 
     public function guardar_datos(){ 
         
         $conexion = Conexion_Class::get_conexion();
 
-        $consulta = $conexion->prepare("INSERT INTO Ciudadanos(NOMBRE,APELLIDO,DNI,TELEFONO,LOCALIDAD) VALUES (?,?,?,?,?)");
+        $consulta = $conexion->prepare("INSERT INTO Ciudadanos(NOMBRE,APELLIDO,DNI,TELEFONO,LOCALIDAD,CODIGO_POSTAL,DIRECCION) VALUES (?,?,?,?,?,?,?)");
 
         $Nombre = $this->Nombre;
         $Apellido = $this->Apellido;
         $dni = $this->dni;
         $telefono = $this->telefono;
         $localidad = $this->localidad;
+        $codigo_postal = $this->codigo_postal;
+        $direccion = $this->direccion;
 
-        $consulta->bind_param('ssiss', $Nombre,$Apellido,$dni,$telefono,$localidad);
+        $consulta->bind_param('ssissis', $Nombre,$Apellido,$dni,$telefono,$localidad,$codigo_postal,$direccion);
 
         $consulta->execute();
 
