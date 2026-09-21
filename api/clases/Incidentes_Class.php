@@ -44,12 +44,11 @@ class incidentes_class{
         $array_tabla = $resultado->fetch_all(MYSQLI_ASSOC);
 
         return $array_tabla;
-  
     }
 
     public function guardar_datos()
     {
-        $conexion = Conexion_Class::get_conexion();
+        $conexion = Conexion_Class::get_conexion(); 
 
         $consulta = $conexion->prepare("INSERT INTO Incidentes(TIPO_INCIDENTE,DETALLES,UBICACION,ID_USUARIO) VALUES(?,?,?,?,?)");
 
@@ -67,14 +66,48 @@ class incidentes_class{
         return $id;
     }
 
-    public function updateIncidente()
+    static public function Modificar_incidente_user($id_incidente,$tipo_incidente, $detalles, $ubicacion, $id_usuario) : int
     {
+        $conexion = Conexion_Class::get_conexion();
 
+        $consulta = $conexion->prepare("UPDATE Incidentes SET TIPO_INCIDENTE = ?, DETALLES = ?, UBICACION = ? WHERE ID_INCIDENTE = ? AND ID_USUARIO = ?");
+        
+        $consulta->bind_param('sssii', $tipo_incidente, $detalles, $ubicacion, $id_incidente , $id_usuario );
+
+        $consulta->execute();
+
+        $resultado = $consulta->affected_rows;
+
+        return $resultado;
+    }
+    static public function Actualizar_Estado($id_incidente,$nuevo_estado) : int
+    {
+        $conexion = Conexion_Class::get_conexion();
+
+        $consulta = $conexion->prepare("UPDATE Incidentes SET ESTADO = ? WHERE ID_INCIDENTE = ?");
+
+        $consulta->bind_param('si', $nuevo_estado, $id_incidente);
+
+        $consulta->execute();
+
+        $resultado = $consulta->affected_rows;
+
+        return $resultado;
     }
 
-    public function deleteIncidente()
+    static function Eliminar_Incidente($id_incidente) : int
     {
+        $conexion = Conexion_Class::get_conexion();
 
+        $consulta = $conexion->prepare("DELETE FROM Incidentes WHERE ID_INCIDENTE = ?");
+
+        $consulta->bind_param('i', $id_incidente );
+
+        $consulta->execute();
+
+        $resultado = $consulta->affected_rows;
+
+        return $resultado;
     }
 }
 
