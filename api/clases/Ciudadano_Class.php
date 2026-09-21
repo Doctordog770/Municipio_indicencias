@@ -68,8 +68,25 @@ class Ciudadanos_Class {
         return $id;
     }
 
-    public static function dni_duplicado(){
-        return 0;
+    public static function dni_duplicado($Dni) : bool
+    {
+        
+    $conexion = Conexion_Class::get_conexion();
+
+        $consulta = $conexion->prepare("SELECT COUNT(*) AS TOTAL FROM Ciudadanos WHERE DNI = ? ");
+
+        $consulta->bind_param('i', $Dni);
+
+        $consulta->execute();
+
+        $fila = $consulta->get_result();
+
+        $resultado = $fila->fetch_assoc();
+
+        if($resultado["TOTAL"] > 0){
+            return true;
+        }
+        return false;
     }
 }
 ?>

@@ -36,6 +36,18 @@ function validar_datos($Contrasena,$Confirmar_Contrasena,$Dni,$Gmail) : bool
         $error .= 'Ya Hay un Usuario con este gmail';
     }
 
+    if(strlen($Dni) > 8 ){
+        $error .= 'El Dni no puede tener mas de 8 o 7 dijitos';
+    } else if (strlen($Dni) < 7){
+        $error .= 'el dni no puede tener menos de 7 o 8 dijitos';
+    }
+
+    $resultado_dni = Ciudadanos_Class::dni_duplicado($Dni);
+
+    if($resultado_dni){
+        $error .= 'El DNI ya esta registrado';
+    }
+
     if($error == ""){
         return true;
     }
