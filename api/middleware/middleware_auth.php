@@ -1,6 +1,5 @@
 <?php
 
-
 require_once("../clases/JWT_class.php");
 
 $datos = getallheaders();

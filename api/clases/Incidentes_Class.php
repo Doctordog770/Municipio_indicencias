@@ -50,7 +50,7 @@ class incidentes_class{
     {
         $conexion = Conexion_Class::get_conexion(); 
 
-        $consulta = $conexion->prepare("INSERT INTO Incidentes(TIPO_INCIDENTE,DETALLES,UBICACION,ID_USUARIO) VALUES(?,?,?,?,?)");
+        $consulta = $conexion->prepare("INSERT INTO Incidentes(TIPO_INCIDENTE,DETALLES,UBICACION,ID_USUARIO) VALUES(?,?,?,?)");
 
         $tipo_incidente = $this->tipo_incidentes;
         $detalles = $this->detalles;
