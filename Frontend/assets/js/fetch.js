@@ -2,8 +2,12 @@
     
     const data = new FormData(formulario);
 
+    const token = localStorage.getItem('token');
+    const headers = token ? { 'Authorization': 'Bearer ' + token } : {};
+
     const respuesta = await fetch(path, {
         method: 'POST',
+        headers: headers,
         body: data
     });
 

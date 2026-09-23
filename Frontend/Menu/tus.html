@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="tus">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tus informes — Reporte Urbano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="menu_opciones.html">
+      <span class="brand-mark" aria-hidden="true">🚧</span>
+      <span class="brand-text">
+        <strong>REPORTE URBANO</strong>
+        <span>Municipalidad de Morón</span>
+      </span>
+    </a>
+
+    <div class="user-menu">
+      <button class="user-btn" id="btnUsuario" type="button" aria-expanded="false" aria-haspopup="true">
+        <span class="avatar" aria-hidden="true">LM</span>
+        <span class="user-name">Lucía Medina</span>
+        <span aria-hidden="true">▾</span>
+      </button>
+      <div class="dropdown" id="menuUsuario" hidden role="menu">
+        <div class="dropdown-head">
+          <strong>Lucía Medina</strong>
+          <span>DNI 41.882.309</span>
+        </div>
+        <button type="button" role="menuitem" id="btnSoporte"><span aria-hidden="true">💬</span> Soporte</button>
+        <button type="button" role="menuitem" class="salir" id="btnSalir"><span aria-hidden="true">⏻</span> Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="vista">
+  <div class="seccion-head">
+    <h2>TUS INFORMES</h2>
+    <a class="btn-volver" href="menu_opciones.html">← Volver al menú</a>
+    <p id="resumenTus">Informes cargados con tu usuario.</p>
+  </div>
+
+  <div class="panel">
+    <div class="barra">
+      <input type="search" id="buscarTus" class="crece" placeholder="Buscar por incidente o dirección" aria-label="Buscar en tus informes">
+      <select id="filtroEstadoTus" aria-label="Filtrar por estado">
+        <option value="">Todos los estados</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="proceso">En proceso</option>
+        <option value="resuelta">Resuelta</option>
+      </select>
+      <select id="ordenTus" aria-label="Ordenar informes">
+        <option value="fecha_desc">Más recientes primero</option>
+        <option value="fecha_asc">Más antiguos primero</option>
+        <option value="estado">Por estado</option>
+      </select>
+    </div>
+
+    <div class="tabla-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>N.º</th><th>Fecha</th><th>Incidente</th><th>Dónde sucedió</th><th>Foto</th><th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTus"></tbody>
+      </table>
+    </div>
+    <p class="vacio" id="vacioTus" hidden>No hay informes tuyos que coincidan con la búsqueda.</p>
+  </div>
+</main>
+
+<!-- ============ VISOR DE IMAGEN ============ -->
+<div class="visor" id="visor" hidden role="dialog" aria-modal="true" aria-labelledby="visorTitulo">
+  <div class="visor-caja">
+    <div class="visor-top">
+      <div>
+        <strong id="visorTitulo"></strong>
+        <span id="visorSub"></span>
+      </div>
+      <button type="button" class="visor-cerrar" id="visorCerrar" aria-label="Cerrar la foto">×</button>
+    </div>
+    <img class="visor-img" id="visorImg" alt="">
+    <p class="visor-pie" id="visorPie"></p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>Jefatura de Área Técnica · E.E.S.T. N.º 6 "Chacabuco" — Morón</p>
+</footer>
+
+<script src="js/comun.js"></script>
+<script src="js/tus.js"></script>
+
+</body>
+</html>

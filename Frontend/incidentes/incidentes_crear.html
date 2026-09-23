@@ -1,41 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear incidente — Municipalidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
-    <form id="form">
-        <section>
-            <label>TIPO_INCIDENTE</label>
-            <select name="tipo_incidente">
-                <option value="Bache / pavimento dañado">Bache / pavimento dañado</option>
-                <option value="Luminaria / alumbrado público">Luminaria / alumbrado público</option>
-                <option value="Basura / residuos">Basura / residuos</option>
-                <option value="Semáforo">Semáforo</option>
-                <option value="Árbol / poda">Árbol / poda</option>
-                <option value="Agua / desagüe">Agua / desagüe</option>
-                <option value="Espacio verde / plaza">Espacio verde / plaza</option>
-                <option value="Otro">Otro</option>
-            </select>
-        </section>
-        <section>
-            <label>DETALLES</label>
-            <textarea maxlength="1000" style="width: 400px; height: 180px; padding-top: 10px; resize: none; vertical-align: top;" name="detalles"></textarea>
-        </section>
-        <section>
-            <label>ubicacion</label>
-            <select name="ubicacion">
-                <option value="Morón">Morón</option>
-                <option value="Castelar">Castelar</option>
-                <option value="Haedo">Haedo</option>
-                <option value="El Palomar">El Palomar</option>
-                <option value="Villa Sarmiento">Villa Sarmiento</option>
-        </section>
-        <section>
-            <input type="submit" value="crear incidente">
-        </section>
-    </form>
+
+<header class="topbar">
+  <div class="topbar-marca">
+    <div class="topbar-logo">M</div>
+    <div>
+      <span>Municipalidad</span>
+      <small>Gestión de incidencias</small>
+    </div>
+  </div>
+  <button class="btn-salir" id="btnSalir">Cerrar sesión</button>
+</header>
+
+<main class="pagina-envoltorio">
+  <a class="enlace-volver" href="../Menu/menu_opciones.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+    Volver al menú
+  </a>
+
+  <div class="pagina-titulo">
+    <h1>Crear incidente</h1>
+  </div>
+
+  <form id="form" class="form-tarjeta" novalidate>
+    <div class="campo">
+      <label for="tipo_incidente">Tipo de incidente</label>
+      <select id="tipo_incidente" name="tipo_incidente" required>
+        <option value="Bache / pavimento dañado">Bache / pavimento dañado</option>
+        <option value="Luminaria / alumbrado público">Luminaria / alumbrado público</option>
+        <option value="Basura / residuos">Basura / residuos</option>
+        <option value="Semáforo">Semáforo</option>
+        <option value="Árbol / poda">Árbol / poda</option>
+        <option value="Agua / desagüe">Agua / desagüe</option>
+        <option value="Espacio verde / plaza">Espacio verde / plaza</option>
+        <option value="Otro">Otro</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label for="detalles">Detalles</label>
+      <textarea id="detalles" name="detalles" maxlength="1000" placeholder="Contanos qué pasó y dónde exactamente…" required></textarea>
+      <span class="contador" id="contador">0/1000</span>
+    </div>
+
+    <div class="campo">
+      <label for="ubicacion">Ubicación</label>
+      <select id="ubicacion" name="ubicacion" required>
+        <option value="Morón">Morón</option>
+        <option value="Castelar">Castelar</option>
+        <option value="Haedo">Haedo</option>
+        <option value="El Palomar">El Palomar</option>
+        <option value="Villa Sarmiento">Villa Sarmiento</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn-primario" id="btnEnviar">Crear incidente</button>
+    <p id="mensaje" class="msg-form"></p>
+  </form>
+</main>
+
+<script src="../Menu/js/menu.js" data-login="../auth/SignInSignUp.html"></script>
+<script type="module" src="js/incidentes_crear.js"></script>
 </body>
 </html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Urbano — Municipalidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="menu_opciones.html">
+      <span class="brand-mark" aria-hidden="true">🚧</span>
+      <span class="brand-text">
+        <strong>REPORTE URBANO</strong>
+        <span>Municipalidad de Morón</span>
+      </span>
+    </a>
+
+    <div class="user-menu">
+      <button class="user-btn" id="btnUsuario" type="button" aria-expanded="false" aria-haspopup="true">
+        <span class="avatar" aria-hidden="true">LM</span>
+        <span class="user-name">Lucía Medina</span>
+        <span aria-hidden="true">▾</span>
+      </button>
+      <div class="dropdown" id="menuUsuario" hidden role="menu">
+        <div class="dropdown-head">
+          <strong>Lucía Medina</strong>
+          <span>DNI 41.882.309</span>
+        </div>
+        <button type="button" role="menuitem" id="btnSoporte"><span aria-hidden="true">💬</span> Soporte</button>
+        <button type="button" role="menuitem" class="salir" id="btnSalir"><span aria-hidden="true">⏻</span> Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="vista" id="vistaMenu">
+  <div class="menu-head">
+    <h1>REPORTE URBANO</h1>
+    <p>Avisale al municipio qué está pasando en tu barrio. Elegí una opción para empezar.</p>
+  </div>
+
+  <div class="señales">
+    <a class="señal verde" href="tus.html">
+      <span class="luz" aria-hidden="true">📋</span>
+      <h2>TUS INFORMES</h2>
+      <p>Los reportes que enviaste vos y en qué estado están.</p>
+    </a>
+
+    <a class="señal amarilla" href="ver.html">
+      <span class="luz" aria-hidden="true">🔎</span>
+      <h2>VER INFORMES</h2>
+      <p>Lo que reportan los vecinos y qué tan peligrosa está cada zona.</p>
+    </a>
+
+    <a class="señal roja" href="crear.html">
+      <span class="luz" aria-hidden="true">⚠️</span>
+      <h2>CREAR UN INFORME</h2>
+      <p>Cargá una incidencia nueva con ubicación, detalle y foto opcional.</p>
+    </a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>Jefatura de Área Técnica · E.E.S.T. N.º 6 "Chacabuco" — Morón</p>
+</footer>
+
+<script src="js/comun.js"></script>
+<script>
+  RU.inicializarTopbar();
+</script>
+
+</body>
+</html>

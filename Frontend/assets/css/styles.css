@@ -1,0 +1,179 @@
+/* ============================================================
+   Paleta y variables — igual que SignInSignUp.html, para que
+   toda la app comparta la misma identidad visual.
+   ============================================================ */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#FBECEC;
+  --ink:#1A1A1A; --ink-soft:#7A4A4A; --border:#E8C9C9;
+  --radius:6px;
+
+  --verde:#8C1616; --verde-oscuro:#5E0F0F;
+  --rojo:#C81E1E;  --rojo-oscuro:#8C1414;
+  --amarillo:#B4231F; --amarillo-oscuro:#7C1512;
+
+  --tema:#C81E1E; --tema-oscuro:#8C1414; --tema-texto:#FFFFFF;
+}
+
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme: dark){
+    --bg:#1A1010; --surface:#241414; --surface-2:#2E1818;
+    --ink:#F5E8E8; --ink-soft:#C99; --border:#4A2424;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1010; --surface:#241414; --surface-2:#2E1818;
+  --ink:#F5E8E8; --ink-soft:#C99; --border:#4A2424;
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height:1.5; min-height:100vh;
+}
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; }
+:focus-visible{ outline:3px solid var(--tema); outline-offset:2px; }
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+
+/* ============================================================
+   Barra superior — se reutiliza en todas las páginas internas
+   ============================================================ */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 32px; background:var(--surface); border-bottom:1px solid var(--border);
+}
+.topbar-marca{ display:flex; align-items:center; gap:12px; }
+.topbar-logo{
+  width:38px; height:38px; border-radius:50%;
+  background:linear-gradient(160deg, var(--tema-oscuro), var(--tema));
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:18px; flex-shrink:0;
+}
+.topbar-marca span{
+  font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:19px; letter-spacing:-.02em;
+}
+.topbar-marca small{ display:block; font-size:11px; color:var(--ink-soft); font-weight:500; }
+.btn-salir{
+  background:transparent; border:1px solid var(--border); color:var(--ink-soft);
+  border-radius:20px; padding:9px 18px; font-size:13px; font-weight:600;
+  transition:border-color .2s ease, color .2s ease;
+}
+.btn-salir:hover{ border-color:var(--tema); color:var(--tema); }
+
+/* ============================================================
+   Menú principal
+   ============================================================ */
+.menu-envoltorio{ max-width:920px; margin:0 auto; padding:56px 24px 40px; }
+.menu-encabezado{ text-align:center; margin-bottom:40px; }
+.menu-encabezado h1{
+  font-family:"Barlow Condensed",sans-serif; font-size:38px; font-weight:700;
+  letter-spacing:-.02em; margin:0 0 8px;
+}
+.menu-encabezado p{ color:var(--ink-soft); font-size:15px; margin:0; }
+
+.menu-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:20px;
+}
+@media (max-width:640px){ .menu-grid{ grid-template-columns:1fr; } }
+
+.menu-card{
+  position:relative; display:flex; flex-direction:column; gap:14px;
+  background:var(--surface-2); border:1px solid var(--border); border-radius:16px;
+  padding:32px 28px; text-align:left; overflow:hidden;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.menu-card:hover{
+  transform:translateY(-3px); border-color:var(--tema);
+  box-shadow:0 14px 28px rgba(140,20,20,.16);
+}
+.menu-card-icono{
+  width:52px; height:52px; border-radius:14px;
+  background:linear-gradient(160deg, var(--tema-oscuro), var(--tema));
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.menu-card-icono svg{ width:26px; height:26px; stroke:#fff; }
+.menu-card h2{
+  font-family:"Barlow Condensed",sans-serif; font-size:24px; font-weight:700;
+  margin:0; letter-spacing:-.01em;
+}
+.menu-card p{ margin:0; font-size:13.5px; color:var(--ink-soft); line-height:1.55; }
+.menu-card-flecha{
+  margin-top:6px; font-size:13px; font-weight:700; color:var(--tema);
+  display:flex; align-items:center; gap:6px;
+}
+.menu-card-flecha svg{ width:15px; height:15px; transition:transform .2s ease; }
+.menu-card:hover .menu-card-flecha svg{ transform:translateX(3px); }
+
+/* ============================================================
+   Listado de incidentes
+   ============================================================ */
+.pagina-envoltorio{ max-width:920px; margin:0 auto; padding:40px 24px 60px; }
+.pagina-titulo{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+.pagina-titulo h1{
+  font-family:"Barlow Condensed",sans-serif; font-size:30px; font-weight:700;
+  letter-spacing:-.02em; margin:0;
+}
+.enlace-volver{
+  display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+  color:var(--ink-soft); margin-bottom:18px;
+}
+.enlace-volver:hover{ color:var(--tema); }
+.enlace-volver svg{ width:15px; height:15px; }
+
+.estado-carga, .estado-vacio, .estado-error{
+  text-align:center; padding:48px 20px; color:var(--ink-soft); font-size:14px;
+}
+.estado-error{ color:var(--rojo-oscuro); }
+
+.lista-incidentes{ display:flex; flex-direction:column; gap:12px; }
+.incidente-item{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+  background:var(--surface-2); border:1px solid var(--border); border-radius:12px;
+  padding:18px 20px;
+}
+.incidente-item-info{ min-width:0; }
+.incidente-tipo{ font-weight:700; font-size:14.5px; margin:0 0 4px; }
+.incidente-detalles{ font-size:13px; color:var(--ink-soft); margin:0 0 8px; line-height:1.5; }
+.incidente-meta{ display:flex; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--ink-soft); }
+.incidente-meta span{ display:inline-flex; align-items:center; gap:5px; }
+.incidente-meta svg{ width:13px; height:13px; }
+
+.badge-estado{
+  flex-shrink:0; font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:20px;
+  white-space:nowrap; text-transform:uppercase; letter-spacing:.02em;
+}
+.badge-estado.pendiente{ background:#FBECEC; color:var(--amarillo-oscuro); border:1px solid var(--border); }
+.badge-estado.proceso{ background:#F6DADA; color:var(--tema-oscuro); border:1px solid var(--border); }
+.badge-estado.resuelto{ background:#E6EFE6; color:#2E5E2E; border:1px solid #C9E0C9; }
+.badge-estado.otro{ background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--border); }
+
+/* ============================================================
+   Formulario "crear incidente"
+   ============================================================ */
+.form-tarjeta{
+  background:var(--surface); border:1px solid var(--border); border-radius:16px;
+  padding:32px; max-width:520px; margin:0 auto;
+}
+.campo{ margin-bottom:18px; }
+.campo label{ display:block; font-size:12.5px; font-weight:600; margin-bottom:7px; color:var(--ink-soft); }
+.campo select, .campo textarea{
+  width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:10px;
+  color:var(--ink); font-family:inherit; font-size:14px; padding:12px 14px; outline:none;
+}
+.campo textarea{ resize:vertical; min-height:130px; }
+.campo select:focus, .campo textarea:focus{ border-color:var(--tema); }
+.contador{ display:block; text-align:right; font-size:11px; color:var(--ink-soft); margin-top:4px; }
+
+.btn-primario{
+  width:100%; height:48px; background:var(--tema); color:var(--tema-texto);
+  border:none; border-radius:23px; font-size:15px; font-weight:600;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn-primario:hover{ transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
+.btn-primario:disabled{ opacity:.7; cursor:default; transform:none; box-shadow:none; }
+
+.msg-form{ text-align:center; font-size:13px; margin-top:14px; min-height:1em; font-weight:500; }
+.msg-form.ok{ color:#2E5E2E; }
+.msg-form.error{ color:var(--rojo-oscuro); }

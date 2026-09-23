@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="crear">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear un informe — Reporte Urbano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="menu_opciones.html">
+      <span class="brand-mark" aria-hidden="true">🚧</span>
+      <span class="brand-text">
+        <strong>REPORTE URBANO</strong>
+        <span>Municipalidad de Morón</span>
+      </span>
+    </a>
+
+    <div class="user-menu">
+      <button class="user-btn" id="btnUsuario" type="button" aria-expanded="false" aria-haspopup="true">
+        <span class="avatar" aria-hidden="true">LM</span>
+        <span class="user-name">Lucía Medina</span>
+        <span aria-hidden="true">▾</span>
+      </button>
+      <div class="dropdown" id="menuUsuario" hidden role="menu">
+        <div class="dropdown-head">
+          <strong>Lucía Medina</strong>
+          <span>DNI 41.882.309</span>
+        </div>
+        <button type="button" role="menuitem" id="btnSoporte"><span aria-hidden="true">💬</span> Soporte</button>
+        <button type="button" role="menuitem" class="salir" id="btnSalir"><span aria-hidden="true">⏻</span> Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="vista">
+  <div class="seccion-head">
+    <h2>CREAR UN INFORME</h2>
+    <a class="btn-volver" href="menu_opciones.html">← Volver al menú</a>
+    <p>Completá los datos de la incidencia. Los campos con detalle ayudan a resolverla más rápido.</p>
+  </div>
+
+  <div class="panel">
+    <form id="formInforme" novalidate>
+      <div class="fila">
+        <div class="campo" id="campo-direccion">
+          <label for="direccion">Dónde sucedió</label>
+          <input id="direccion" type="text" maxlength="90" placeholder="Calle y altura. Ej: Av. Rivadavia 2450">
+          <p class="msg-error" id="err-direccion"></p>
+        </div>
+        <div class="campo">
+          <label for="barrio">Barrio o localidad</label>
+          <select id="barrio"></select>
+        </div>
+      </div>
+
+      <div class="campo" id="campo-incidente">
+        <label for="buscarIncidente">Qué incidente pasó <span class="sub">— escribí para buscar</span></label>
+        <div class="combo">
+          <input id="buscarIncidente" type="search" autocomplete="off" placeholder="Ej: pozo, luz quemada, basura..."
+                 role="combobox" aria-expanded="false" aria-controls="listaIncidentes">
+          <div class="combo-lista" id="listaIncidentes" hidden role="listbox"></div>
+        </div>
+        <span class="elegido" id="incidenteElegido" hidden>
+          <span id="incidenteElegidoTexto"></span>
+          <button type="button" id="quitarIncidente" aria-label="Quitar incidente elegido">×</button>
+        </span>
+        <p class="msg-error" id="err-incidente"></p>
+      </div>
+
+      <div class="campo" id="campo-otro" hidden>
+        <label for="otroIncidente">Contanos qué pasó <span class="sub">— elegiste "Otro"</span></label>
+        <input id="otroIncidente" type="text" maxlength="70" placeholder="Nombrá brevemente el incidente">
+        <p class="msg-error" id="err-otro"></p>
+      </div>
+
+      <div class="campo" id="campo-descripcion">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" maxlength="400" placeholder="Describí la situación: desde cuándo pasa, si es peligroso, qué se ve..."></textarea>
+        <p class="msg-error" id="err-descripcion"></p>
+      </div>
+
+      <div class="campo">
+        <label>Foto <span class="sub">— opcional</span></label>
+        <div class="dropzone">
+          <div class="ico" aria-hidden="true">📷</div>
+          <p>Una imagen ayuda al equipo técnico a entender la incidencia.</p>
+          <input type="file" id="foto" accept="image/*" hidden>
+          <button type="button" class="btn-archivo" id="btnFoto">Elegir una foto</button>
+        </div>
+        <div class="preview" id="previewFoto" hidden>
+          <img id="previewImg" alt="Vista previa de la foto adjunta">
+          <div class="preview-info">
+            <strong id="previewNombre"></strong>
+            <span id="previewPeso"></span>
+            <button type="button" class="btn-archivo" id="quitarFoto">Quitar foto</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-enviar">Enviar informe</button>
+      <p class="form-estado" id="estadoForm" role="status"></p>
+    </form>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>Jefatura de Área Técnica · E.E.S.T. N.º 6 "Chacabuco" — Morón</p>
+</footer>
+
+<script src="js/comun.js"></script>
+<script src="js/crear.js"></script>
+
+</body>
+</html>
