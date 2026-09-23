@@ -28,7 +28,7 @@ administradores hagan el seguimiento de cada incidencia.
 - XAMPP u otro servidor compatible con PHP.
 - Apache habilitado.
 - MySQL o MariaDB habilitado.
-- PHP compatible con las características utilizadas por el proyecto.
+- PHP compatible con las características utilizadas por el proyecto (USO OBLIGATORIO DE PHP 8.5 ).
 - Navegador web moderno.
 
 ## Instalación local
