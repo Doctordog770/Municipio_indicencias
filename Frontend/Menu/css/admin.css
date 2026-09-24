@@ -1,0 +1,19 @@
+.admin-panel{ padding:22px; }
+.admin-toolbar{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px; }
+.admin-toolbar strong{ font-family:"Barlow Condensed",sans-serif; font-size:25px; }
+.admin-toolbar p{ margin:3px 0 0; color:var(--ink-soft); font-size:13px; }
+.tabla-admin{ min-width:980px; }
+.tabla-admin select{ min-width:120px; width:auto; padding:7px 9px; font-size:12.5px; }
+.admin-incidente{ font-weight:600; }
+.admin-detalle{ display:block; max-width:28ch; margin-top:3px; color:var(--ink-soft); font-size:12px; }
+.admin-ubicacion{ max-width:24ch; }
+.admin-accion{ background:transparent; border:1px solid var(--rojo); color:var(--rojo); border-radius:4px; padding:7px 10px; font-size:12px; font-weight:700; white-space:nowrap; }
+.admin-accion:hover{ background:rgba(180,35,31,.1); }
+.admin-accion:disabled, .tabla-admin select:disabled{ opacity:.55; cursor:wait; }
+.admin-mensaje{ min-height:1.2em; margin:16px 0 0; font-size:13px; font-weight:600; }
+.admin-mensaje.ok{ color:var(--verde); }
+.admin-mensaje.error{ color:var(--rojo); }
+@media (max-width:640px){
+  .admin-toolbar{ align-items:flex-start; flex-direction:column; }
+  .admin-toolbar .btn-buscar{ width:100%; }
+}

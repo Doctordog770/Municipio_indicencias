@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-tema="comunidad">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reporte Urbano — Municipalidad</title>
+<title>Administración — Reporte Urbano</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/admin.css">
 </head>
-<body>
+<body hidden>
 
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="menu_opciones.html">
-    <span class="brand-mark" aria-hidden="true">
-  <img class="logo rojo"     src="imgs/logoMoronRojo.png"     alt="">
-  <img class="logo amarillo" src="imgs/logoMoronAmarillo.png" alt="">
-  <img class="logo verde"    src="imgs/logoMoronVerde.png"    alt="">
-</span>
-  <span class="brand-text">
+      <span class="brand-mark" aria-hidden="true">
+        <img class="logo rojo" src="imgs/logoMoronRojo.png" alt="">
+        <img class="logo amarillo" src="imgs/logoMoronAmarillo.png" alt="">
+        <img class="logo verde" src="imgs/logoMoronVerde.png" alt="">
+      </span>
+      <span class="brand-text">
         <strong>REPORTE URBANO</strong>
         <span>Municipalidad de Morón</span>
       </span>
@@ -34,7 +35,7 @@
       <div class="dropdown" id="menuUsuario" hidden role="menu">
         <div class="dropdown-head">
           <strong>Lucía Medina</strong>
-          <span>DNI 41.882.309</span>
+          <span>Administración</span>
         </div>
         <button type="button" role="menuitem" id="btnSoporte"><span aria-hidden="true">💬</span> Soporte</button>
         <button type="button" role="menuitem" class="salir" id="btnSalir"><span aria-hidden="true">⏻</span> Cerrar sesión</button>
@@ -43,45 +44,35 @@
   </div>
 </header>
 
-<main class="vista" id="vistaMenu">
-  <div class="menu-head">
-    <h1>REPORTE URBANO</h1>
-    <p>Avisale al municipio qué está pasando en tu barrio. Elegí una opción para empezar.</p>
+<main class="vista">
+  <div class="seccion-head">
+    <h2>ADMINISTRACIÓN</h2>
+    <a class="btn-volver" href="menu_opciones.html">← Volver al menú</a>
+    <p>Gestioná el estado y la permanencia de los informes municipales.</p>
   </div>
 
-  <div class="señales">
-  <a class="señal amarilla" href="tus.html">
-    <img src="imgs/verInformes.png" alt="">
-    <div class="señal-texto">
-      <h2>TUS INFORMES</h2>
-      
+  <div class="panel admin-panel">
+    <div class="admin-toolbar">
+      <div>
+        <strong>Informes recientes</strong>
+        <p id="resumenAdmin">Cargando informes...</p>
+      </div>
+      <button type="button" class="btn-buscar" id="btnActualizar">Actualizar</button>
     </div>
-  </a>
 
-  <a class="señal roja" href="ver.html">
-    <img src="imgs/verTusInformes.png" alt="">
-    <div class="señal-texto">
-      <h2>VER INFORMES</h2>
-      
+    <div class="tabla-scroll">
+      <table class="tabla-admin">
+        <thead>
+          <tr>
+            <th>N.º</th><th>Fecha</th><th>Incidente</th><th>Ubicación</th><th>Usuario</th><th>Estado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoAdmin"></tbody>
+      </table>
     </div>
-  </a>
-
-  <a class="señal verde" href="crear.html">
-    <img src="imgs/crearInforme.png" alt="">
-    <div class="señal-texto">
-      <h2>CREAR UN INFORME</h2>
-      
-    </div>
-  </a>
-
-  <a class="señal admin" id="opcionAdmin" href="menu_admin.html" hidden>
-    <img src="imgs/verTusInformes.png" alt="">
-    <div class="señal-texto">
-      <h2>ADMIN</h2>
-      <p>Gestionar estados y eliminar informes.</p>
-    </div>
-  </a>
-</div>
+    <p class="vacio" id="vacioAdmin" hidden>No hay informes para administrar.</p>
+    <p class="admin-mensaje" id="mensajeAdmin" role="status"></p>
+  </div>
 </main>
 
 <footer class="footer">
@@ -89,7 +80,6 @@
 </footer>
 
 <script src="js/comun.js"></script>
-<script type="module" src="js/menu.js"></script>
-
+<script src="js/admin.js"></script>
 </body>
 </html>

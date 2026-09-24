@@ -74,6 +74,8 @@ button{ font-family:inherit; cursor:pointer; }
 .señal{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 22px 24px; display:flex; flex-direction:column; align-items:center; gap:14px; transition:border-color .18s ease, transform .18s ease; text-decoration:none; }
 .señal:hover{ transform:translateY(-3px); }
 .señal.verde:hover{ border-color:var(--verde); }
+.señal.admin:hover{ border-color:var(--tema); }
+.señal[hidden]{ display:none; }
 .señal.amarilla:hover{ border-color:var(--amarillo); }
 .señal.roja:hover{ border-color:var(--rojo); }
 

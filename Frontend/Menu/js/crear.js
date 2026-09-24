@@ -2,7 +2,6 @@
   "use strict";
 
   RU.inicializarTopbar();
-  var datos = RU.cargarDatos();
 
   /* ========= Barrio ========= */
   var selectBarrio = document.getElementById("barrio");
@@ -138,7 +137,7 @@
     if (msg) msg.textContent = mensaje || "";
   }
 
-  form.addEventListener("submit", function(e){
+  form.addEventListener("submit", async function(e){
     e.preventDefault();
 
     var direccion = document.getElementById("direccion").value.trim();
@@ -172,23 +171,35 @@
       return;
     }
 
-    var nro = "INF-0" + (292 + (datos.comunidad.length - 13));
-    var nuevo = {
-      nro: nro,
-      fecha: new Date().toISOString(),
-      incidente: seleccion.id === "otro" ? otro : seleccion.nombre,
-      ic: seleccion.ic,
-      direccion: direccion,
-      barrio: selectBarrio.value,
-      descripcion: descripcion,
-      foto: fotoCargada,
-      esPropia: true,
-      estado: "pendiente",
-      vecino: "Lucía Medina"
-    };
-    datos.misInformes.unshift(nuevo);
-    datos.comunidad.unshift(nuevo);
-    RU.guardarDatos(datos);
+    var tipoIncidente = seleccion.id === "otro" ? otro : seleccion.nombre;
+    var ubicacion = direccion + " - " + selectBarrio.value;
+    var datosEnvio = new FormData();
+    datosEnvio.append("tipo_incidente", tipoIncidente);
+    datosEnvio.append("detalles", descripcion);
+    datosEnvio.append("ubicacion", ubicacion);
+
+    var respuesta;
+    try {
+      var token = localStorage.getItem("token");
+      var respuestaHttp = await fetch("../../api/CRUB/Crear_incidencia_code.php", {
+        method: "POST",
+        headers: { "Authorization": "Bearer " + token },
+        body: datosEnvio
+      });
+      respuesta = await respuestaHttp.json();
+    } catch (error) {
+      estadoForm.style.color = "var(--rojo)";
+      estadoForm.textContent = "No se pudo conectar con el servidor. Intentá nuevamente.";
+      return;
+    }
+
+    if (!respuesta.ok) {
+      estadoForm.style.color = "var(--rojo)";
+      estadoForm.textContent = respuesta.mensaje || "No se pudo crear el informe.";
+      return;
+    }
+
+    var nro = "INF-" + respuesta.id_indidente;
 
     form.reset();
     seleccion = null;

@@ -35,7 +35,10 @@ class incidentes_class{
     {
         $conexion = Conexion_Class::get_conexion();
 
-        $consulta = $conexion->prepare("SELECT * FROM Incidentes");
+        $consulta = $conexion->prepare("SELECT Incidentes.*, Ciudadanos.NOMBRE, Ciudadanos.APELLIDO
+            FROM Incidentes
+            INNER JOIN Usuarios ON Incidentes.ID_USUARIO = Usuarios.ID_USUARIO
+            INNER JOIN Ciudadanos ON Usuarios.ID_CIUDADANO = Ciudadanos.ID_CIUDADANO");
 
         $consulta->execute();
 

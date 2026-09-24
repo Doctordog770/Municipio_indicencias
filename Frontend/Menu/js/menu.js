@@ -1,20 +1,21 @@
-// La ruta hacia el login cambia según desde qué página se cargue este
-// script (menu_opciones.html o las subpáginas dentro de incidentes/), por eso se
-// lee del atributo data-login del propio <script>.
-const scriptActual = document.currentScript;
-const rutaLogin = (scriptActual && scriptActual.dataset.login) || "../auth/SignInSignUp.html";
-
-// Si no hay sesión iniciada, no tiene sentido mostrar el menú.
-const token = localStorage.getItem('token');
-if (!token) {
-    window.location.href = rutaLogin;
+if (window.RU) {
+    window.RU.inicializarTopbar();
 }
 
-const btnSalir = document.getElementById("btnSalir");
-if (btnSalir) {
-    btnSalir.addEventListener('click', () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('rol');
-        window.location.href = rutaLogin;
-    });
+const opcionAdmin = document.getElementById("opcionAdmin");
+if (opcionAdmin) {
+    opcionAdmin.hidden = true;
+
+    try {
+        const token = localStorage.getItem("token");
+        const partePayload = token && token.split(".")[1];
+        const base64 = partePayload.replace(/-/g, "+").replace(/_/g, "/");
+        const payload = JSON.parse(atob(base64 + "===".slice((base64.length + 3) % 4)));
+
+        if (String(payload.ROL || "").trim().toLowerCase() === "admin") {
+            opcionAdmin.hidden = false;
+        }
+    } catch (error) {
+        opcionAdmin.hidden = true;
+    }
 }

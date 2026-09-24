@@ -3,7 +3,7 @@
 
   RU.inicializarTopbar();
   var visor = RU.inicializarVisor();
-  var datos = RU.cargarDatos();
+  var datos = { comunidad: [] };
 
   var cuerpoCom = document.getElementById("cuerpoComunidad");
   var vacioCom = document.getElementById("vacioComunidad");
@@ -23,6 +23,62 @@
   buscarZona.addEventListener("keydown", function(e){
     if (e.key === "Enter"){ e.preventDefault(); render(); }
   });
+
+  function iconoIncidente(tipo){
+    var buscado = RU.normalizar(String(tipo || ""));
+    var encontrado = RU.INCIDENTES.find(function(incidente){
+      return RU.normalizar(incidente.nombre).indexOf(buscado) !== -1 ||
+             buscado.indexOf(RU.normalizar(incidente.nombre)) !== -1;
+    });
+    return encontrado ? encontrado.ic : "•";
+  }
+
+  function normalizarEstado(estado){
+    var estadoNormalizado = RU.normalizar(String(estado || "pendiente")).replace(/\s+/g, "_");
+    return estadoNormalizado === "en_proceso" ? "proceso" : estadoNormalizado;
+  }
+
+  function adaptarIncidente(incidente){
+    var ubicacion = incidente.UBICACION || "Sin ubicación";
+    var tipo = incidente.TIPO_INCIDENTE || "Incidente sin tipo";
+
+    return {
+      nro: "INF-" + incidente.ID_INCIDENTE,
+      fecha: incidente.FECHA_CREACION,
+      incidente: tipo,
+      ic: iconoIncidente(tipo),
+      direccion: ubicacion,
+      barrio: ubicacion,
+      vecino: incidente.NOMBRE && incidente.APELLIDO
+        ? incidente.NOMBRE + " " + incidente.APELLIDO
+        : "Usuario #" + incidente.ID_USUARIO,
+      descripcion: incidente.DETALLES || "Sin detalles",
+      foto: incidente.IMAGEN || null,
+      estado: normalizarEstado(incidente.ESTADO)
+    };
+  }
+
+  async function cargarIncidentes(){
+    try {
+      var moduloFetch = await import("../../assets/js/fetch.js");
+      var respuesta = await moduloFetch.fetch_autenticado(
+        "../../api/CRUB/Listar_incidencias_code.php",
+        "POST"
+      );
+
+      if (!respuesta.ok || !Array.isArray(respuesta.lista_incidentes)) {
+        throw new Error(respuesta.mensaje || "No se pudieron cargar los informes.");
+      }
+
+      datos.comunidad = respuesta.lista_incidentes.map(adaptarIncidente);
+      render();
+    } catch (error) {
+      cuerpoCom.innerHTML = "";
+      vacioCom.hidden = false;
+      vacioCom.textContent = "No se pudieron cargar los informes. Revisá tu sesión e intentá nuevamente.";
+      resumenCom.textContent = "Error al consultar los informes.";
+    }
+  }
 
   function zonaCoincidente(q){
     if (!q) return null;
@@ -96,5 +152,5 @@
       : "Últimos reportes cargados por los vecinos · " + lista.length + " informes.";
   }
 
-  render();
+  cargarIncidentes();
 })();
