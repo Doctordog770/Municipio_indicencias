@@ -9,9 +9,9 @@
 
   --tema:#2E3440; --tema-oscuro:#1C1F24; --tema-texto:#FFFFFF;
 }
-:root[data-tema="tus"]{      --tema:var(--verde);    --tema-oscuro:var(--verde-oscuro);    --tema-texto:#FFF; }
-:root[data-tema="comunidad"]{--tema:var(--amarillo); --tema-oscuro:var(--amarillo-oscuro); --tema-texto:#FFF; }
-:root[data-tema="crear"]{    --tema:var(--rojo);     --tema-oscuro:var(--rojo-oscuro);     --tema-texto:#FFF; }
+:root[data-tema="tus"]{      --tema:var(--amarillo); --tema-oscuro:var(--amarillo-oscuro); --tema-texto:#1A1A1A; }
+:root[data-tema="comunidad"]{--tema:var(--rojo);     --tema-oscuro:var(--rojo-oscuro);     --tema-texto:#FFF; }
+:root[data-tema="crear"]{    --tema:var(--verde);    --tema-oscuro:var(--verde-oscuro);    --tema-texto:#FFF; }
 
 :root:not([data-theme="light"]){
   @media (prefers-color-scheme: dark){
@@ -230,3 +230,130 @@ tbody tr:hover{ background:var(--surface-2); }
 .vacio[hidden]{ display:none; }
 
 .footer{ max-width:1120px; margin:0 auto; padding:0 24px 32px; color:var(--ink-soft); font-size:12.5px; }
+
+/* ==========================================================
+   LOGO DE MORÓN EN EL HEADER — funciona en todas las páginas
+   ========================================================== */
+.brand-mark:has(.logo){
+  position:relative; width:46px; height:46px; border-radius:12px; overflow:hidden;
+  border:2px solid rgba(255,255,255,.9); background:#fff; font-size:0;
+}
+.logo{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+  opacity:0; transition:opacity .25s ease;
+}
+.logo.rojo{ opacity:1; }
+
+:root[data-tema="tus"] .logo.amarillo,
+:root:has(.señal.amarilla:is(:hover,:focus-visible)) .logo.amarillo{ opacity:1; }
+:root[data-tema="tus"] .logo.rojo,
+:root:has(.señal.amarilla:is(:hover,:focus-visible)) .logo.rojo{ opacity:0; }
+
+:root[data-tema="crear"] .logo.verde,
+:root:has(.señal.verde:is(:hover,:focus-visible)) .logo.verde{ opacity:1; }
+:root[data-tema="crear"] .logo.rojo,
+:root:has(.señal.verde:is(:hover,:focus-visible)) .logo.rojo{ opacity:0; }
+
+/* ==========================================================
+   MENÚ PRINCIPAL (menu_opciones.html) — rojo y blanco + color por opción
+   Solo aplica a páginas sin data-tema
+   ========================================================== */
+:root:not([data-tema]){
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#FBECEC;
+  --ink:#1A1A1A; --ink-soft:#7A4A4A; --border:#E8C9C9;
+  --radius:10px;
+  --tema:var(--rojo); --tema-oscuro:var(--rojo-oscuro); --tema-texto:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-tema]):not([data-theme="light"]){
+    --bg:#1A1010; --surface:#241414; --surface-2:#2E1818;
+    --ink:#F5E8E8; --ink-soft:#CC9999; --border:#4A2424;
+  }
+}
+:root:not([data-tema])[data-theme="dark"]{
+  --bg:#1A1010; --surface:#241414; --surface-2:#2E1818;
+  --ink:#F5E8E8; --ink-soft:#CC9999; --border:#4A2424;
+}
+
+:root:not([data-tema]):has(.señal.amarilla:is(:hover,:focus-visible)){
+  --tema:var(--amarillo); --tema-oscuro:var(--amarillo-oscuro);
+}
+:root:not([data-tema]):has(.señal.verde:is(:hover,:focus-visible)){
+  --tema:var(--verde); --tema-oscuro:var(--verde-oscuro);
+}
+
+/* ---------- Barra superior ---------- */
+:root:not([data-tema]) .topbar{
+  background:var(--tema-oscuro); border-bottom:5px solid var(--tema);
+  box-shadow:0 4px 18px rgba(0,0,0,.14);
+  transition:background-color .25s ease, border-color .25s ease;
+}
+:root:not([data-tema]) .brand-text strong{ letter-spacing:-.02em; }
+:root:not([data-tema]) .user-btn{ background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.4); }
+:root:not([data-tema]) .avatar{ background:#fff; color:var(--tema-oscuro); transition:color .25s ease; }
+:root:not([data-tema]) .dropdown{ border-radius:12px; box-shadow:0 14px 28px rgba(0,0,0,.18); }
+:root:not([data-tema]) .dropdown button:hover{ background:var(--surface-2); color:var(--tema); }
+:root:not([data-tema]) .dropdown button.salir{ color:var(--rojo); }
+
+/* ---------- Título ---------- */
+:root:not([data-tema]) .menu-head h1{ letter-spacing:-.02em; color:var(--ink); }
+:root:not([data-tema]) .menu-head h1::after{
+  content:""; display:block; width:64px; height:4px; border-radius:2px;
+  background:var(--tema); margin:14px auto 12px; transition:background-color .25s ease;
+}
+
+/* ---------- Botones: imagen + texto ---------- */
+:root:not([data-tema]) .señales{ gap:24px; max-width:1000px; align-items:start; }
+
+:root:not([data-tema]) .señal{
+  --proporcion:4 / 5;              /* forma de la imagen, cambiala si hace falta */
+  --tono:var(--rojo); --tono-texto:var(--rojo);
+  display:flex; flex-direction:column; align-items:stretch; gap:0;
+  position:relative; aspect-ratio:auto; height:auto;
+  padding:0; overflow:hidden;
+  background:var(--surface); border:1px solid var(--border); border-radius:16px;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+:root:not([data-tema]) .señal.roja{     --tono:var(--rojo);     --tono-texto:var(--rojo); }
+:root:not([data-tema]) .señal.amarilla{ --tono:var(--amarillo); --tono-texto:var(--amarillo-oscuro); }
+:root:not([data-tema]) .señal.verde{    --tono:var(--verde);    --tono-texto:var(--verde); }
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-tema]):not([data-theme="light"]) .señal.amarilla{ --tono-texto:var(--amarillo); }
+}
+:root:not([data-tema])[data-theme="dark"] .señal.amarilla{ --tono-texto:var(--amarillo); }
+
+/* anula la franja y la imagen "absoluta" de la versión anterior */
+:root:not([data-tema]) .señal::after{ content:none; }
+:root:not([data-tema]) .señal img{
+  position:static; inset:auto; display:block; width:100%; height:auto;
+  aspect-ratio:var(--proporcion); object-fit:cover; background:var(--surface-2);
+}
+
+/* texto del botón, en el color de la opción */
+:root:not([data-tema]) .señal-texto{
+  display:block; position:relative; z-index:1;
+  padding:16px 18px 20px; border-top:6px solid var(--tono); text-align:center;
+  background:var(--surface);
+}
+:root:not([data-tema]) .señal-texto h2{
+  margin:0 0 6px; font-family:"Barlow Condensed",sans-serif; font-size:26px;
+  font-weight:700; letter-spacing:-.01em; color:var(--tono-texto);
+}
+:root:not([data-tema]) .señal-texto p{
+  margin:0; max-width:none; font-size:13.5px; line-height:1.5;
+  font-weight:500; color:var(--tono-texto);
+}
+
+:root:not([data-tema]) .señal:hover{
+  transform:translateY(-4px); border-color:var(--tono);
+  box-shadow:0 14px 28px color-mix(in srgb, var(--tono) 32%, transparent);
+}
+:root:not([data-tema]) .señal:focus-visible{ outline:3px solid var(--tono); outline-offset:3px; }
+
+@media (max-width:820px){
+  :root:not([data-tema]) .señales{ grid-template-columns:1fr; max-width:420px; }
+}
+
+/* ---------- Pie ---------- */
+:root:not([data-tema]) .footer{ text-align:center; }
