@@ -1,4 +1,6 @@
-/* Funciones y datos compartidos por las páginas del menú. */
+/* Funciones y datos compartidos por las 4 páginas (menu, tus, ver, crear).
+   Los informes se guardan en localStorage para que lo que cargás en
+   "Crear un informe" aparezca en "Tus informes" y "Ver informes". */
 var RU = (function(){
   /* Todas las páginas del menú requieren una sesión válida. */
   if (!localStorage.getItem("token")) {
@@ -201,27 +203,6 @@ var RU = (function(){
     var menuUsuario = document.getElementById("menuUsuario");
     if (!btnUsuario || !menuUsuario) return;
 
-    var nombreEls = document.querySelectorAll(".user-name, .dropdown-head strong");
-    var avatarEls = document.querySelectorAll(".avatar");
-    var rol = (localStorage.getItem("rol") || "").toLowerCase();
-    var adminLink = document.getElementById("enlaceAdmin");
-    if (adminLink) adminLink.hidden = rol !== "admin";
-
-    fetch("../../api/augh/de_volver_nombre.php", {
-      headers: { "Authorization": "Bearer " + localStorage.getItem("token") }
-    }).then(function(res){
-      if (!res.ok) throw new Error("No se pudo cargar el perfil");
-      return res.json();
-    }).then(function(perfil){
-      if (!perfil.ok) throw new Error(perfil.mensaje || "No se pudo cargar el perfil");
-      var nombre = [perfil.NOMBRE, perfil.APELLIDO].filter(Boolean).join(" ");
-      var iniciales = [perfil.NOMBRE, perfil.APELLIDO].filter(Boolean).map(function(valor){
-        return valor.charAt(0);
-      }).join("").toUpperCase();
-      nombreEls.forEach(function(el){ el.textContent = nombre; });
-      avatarEls.forEach(function(el){ el.textContent = iniciales || "?"; });
-    }).catch(function(){});
-
     btnUsuario.addEventListener("click", function(e){
       e.stopPropagation();
       var abierto = !menuUsuario.hidden;
@@ -261,43 +242,6 @@ var RU = (function(){
     }
   }
 
-  function apiFetch(path, opciones){
-    opciones = opciones || {};
-    opciones.headers = Object.assign({
-      "Authorization": "Bearer " + localStorage.getItem("token")
-    }, opciones.headers || {});
-    return fetch(path, opciones).then(function(res){
-      return res.json().then(function(json){
-        if (!res.ok) {
-          var error = new Error(json.mensaje || "La operación no pudo completarse.");
-          error.status = res.status;
-          throw error;
-        }
-        return json;
-      });
-    });
-  }
-
-  function normalizarIncidente(incidente){
-    var estado = (incidente.ESTADO || "PENDIENTE").toUpperCase();
-    var estados = { "PENDIENTE":"pendiente", "EN PROCESO":"proceso", "RESUELTO":"resuelta" };
-    return {
-      id: incidente.ID_INCIDENTE,
-      nro: "INF-" + String(incidente.ID_INCIDENTE).padStart(4, "0"),
-      fecha: (incidente.FECHA_CREACION || "").replace(" ", "T"),
-      incidente: incidente.TIPO_INCIDENTE,
-      ic: "",
-      direccion: incidente.UBICACION,
-      barrio: incidente.UBICACION,
-      descripcion: incidente.DETALLES,
-      foto: incidente.IMAGEN || null,
-      estado: estados[estado] || "pendiente",
-      estadoApi: estado,
-      vecino: incidente.NOMBRE_VECINO || "Vecino",
-      esPropia: Number(incidente.ID_USUARIO) === Number(localStorage.getItem("id_usuario"))
-    };
-  }
-
   return {
     FOTO_DEFECTO: FOTO_DEFECTO,
     ZONAS: ZONAS,
@@ -315,8 +259,6 @@ var RU = (function(){
     celdaEstado: celdaEstado,
     celdaFoto: celdaFoto,
     inicializarVisor: inicializarVisor,
-    inicializarTopbar: inicializarTopbar,
-    apiFetch: apiFetch,
-    normalizarIncidente: normalizarIncidente
+    inicializarTopbar: inicializarTopbar
   };
 })();

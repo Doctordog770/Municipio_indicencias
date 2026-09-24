@@ -11,7 +11,6 @@ formulario.addEventListener('submit', async (e) => {
     if(json.ok){
         localStorage.setItem('token', json.TOKEN);
         localStorage.setItem('rol', json.ROL);
-        localStorage.setItem('id_usuario', json.ID_USUARIO);
         document.getElementById("errorLogin").innerHTML = json.mensaje;
         window.location.href = "../Menu/menu_opciones.html";
     } else {

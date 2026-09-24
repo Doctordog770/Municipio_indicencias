@@ -7,19 +7,10 @@ if (!token) {
 
 const contenedor = document.getElementById("listaIncidentes");
 
-fetch("../../api/augh/de_volver_nombre.php", {
-    headers: { Authorization: "Bearer " + token }
-}).then(res => res.json()).then(perfil => {
-    if (perfil.ok) {
-        document.getElementById("nombreCuenta").textContent =
-            `${perfil.NOMBRE} ${perfil.APELLIDO}`.trim();
-    }
-}).catch(() => {});
-
 const ESTADOS = {
     "PENDIENTE": "pendiente",
     "EN PROCESO": "proceso",
-    "RESUELTO": "resuelta"
+    "RESUELTO": "resuelto"
 };
 
 function claseEstado(estado) {
