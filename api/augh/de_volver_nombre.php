@@ -35,4 +35,5 @@ echo json_encode([
     "NOMBRE" => $resultado["NOMBRE"],
     "APELLIDO" => $resultado["APELLIDO"]
 ]);
+exit;
 
