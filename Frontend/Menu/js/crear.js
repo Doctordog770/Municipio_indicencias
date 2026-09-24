@@ -172,33 +172,25 @@
       return;
     }
 
-    var nro = "INF-0" + (292 + (datos.comunidad.length - 13));
-    var nuevo = {
-      nro: nro,
-      fecha: new Date().toISOString(),
-      incidente: seleccion.id === "otro" ? otro : seleccion.nombre,
-      ic: seleccion.ic,
-      direccion: direccion,
-      barrio: selectBarrio.value,
-      descripcion: descripcion,
-      foto: fotoCargada,
-      esPropia: true,
-      estado: "pendiente",
-      vecino: "Lucía Medina"
-    };
-    datos.misInformes.unshift(nuevo);
-    datos.comunidad.unshift(nuevo);
-    RU.guardarDatos(datos);
-
-    form.reset();
-    seleccion = null;
-    fotoCargada = null;
-    elegido.hidden = true;
-    campoOtro.hidden = true;
-    preview.hidden = true;
-
-    estadoForm.style.color = "var(--verde)";
-    estadoForm.innerHTML = "Informe " + nro + " enviado. Ya aparece en \u201c<a href='tus.html' style='color:inherit'>Tus informes</a>\u201d.";
-    window.setTimeout(function(){ estadoForm.textContent = ""; }, 8000);
+    var datosEnvio = new FormData();
+    datosEnvio.append("tipo_incidente", seleccion.id === "otro" ? otro : seleccion.nombre);
+    datosEnvio.append("detalles", descripcion);
+    datosEnvio.append("ubicacion", direccion + (selectBarrio.value ? " (" + selectBarrio.value + ")" : ""));
+    RU.apiFetch("../../api/CRUB/Crear_incidencia_code.php", { method:"POST", body:datosEnvio })
+      .then(function(respuesta){
+        form.reset();
+        seleccion = null;
+        fotoCargada = null;
+        elegido.hidden = true;
+        campoOtro.hidden = true;
+        preview.hidden = true;
+        estadoForm.style.color = "var(--verde)";
+        estadoForm.textContent = "Informe #" + respuesta.id_indidente + " enviado. Ya aparece en “Tus informes”.";
+        window.setTimeout(function(){ estadoForm.textContent = ""; }, 8000);
+      })
+      .catch(function(error){
+        estadoForm.style.color = "var(--rojo)";
+        estadoForm.textContent = error.message;
+      });
   });
 })();

@@ -3,8 +3,7 @@
 
   RU.inicializarTopbar();
   var visor = RU.inicializarVisor();
-  var datos = RU.cargarDatos();
-
+  var informes = [];
   var cuerpoTus = document.getElementById("cuerpoTus");
   var vacioTus = document.getElementById("vacioTus");
   var buscarTus = document.getElementById("buscarTus");
@@ -17,45 +16,49 @@
     el.addEventListener("change", render);
   });
 
+  function eliminar(id){
+    if (!window.confirm("¿Querés borrar este informe?")) return;
+    var form = new FormData();
+    form.append("id_incidente", id);
+    RU.apiFetch("../../api/CRUB/Eliminar_code.php", { method:"POST", body:form })
+      .then(function(){ informes = informes.filter(function(item){ return item.id !== id; }); render(); })
+      .catch(function(error){ window.alert(error.message); });
+  }
+
   function render(){
     var q = RU.normalizar(buscarTus.value.trim());
     var est = filtroEstadoTus.value;
-
-    var lista = datos.misInformes.filter(function(i){
+    var lista = informes.filter(function(i){
       if (est && i.estado !== est) return false;
-      if (q && RU.normalizar(i.incidente + " " + i.direccion + " " + i.barrio).indexOf(q) === -1) return false;
-      return true;
+      return !q || RU.normalizar(i.incidente + " " + i.direccion).indexOf(q) !== -1;
     });
-
-    var orden = ordenTus.value;
     lista.sort(function(a,b){
-      if (orden === "fecha_asc") return new Date(a.fecha) - new Date(b.fecha);
-      if (orden === "estado") return RU.ORDEN_ESTADO[a.estado] - RU.ORDEN_ESTADO[b.estado];
+      if (ordenTus.value === "fecha_asc") return new Date(a.fecha) - new Date(b.fecha);
+      if (ordenTus.value === "estado") return RU.ORDEN_ESTADO[a.estado] - RU.ORDEN_ESTADO[b.estado];
       return new Date(b.fecha) - new Date(a.fecha);
     });
-
     cuerpoTus.innerHTML = "";
     lista.forEach(function(i){
       var tr = document.createElement("tr");
       tr.appendChild(RU.td(i.nro));
       tr.appendChild(RU.td(RU.formatFecha(i.fecha)));
       tr.appendChild(RU.celdaIncidente(i));
-
-      var tdDir = document.createElement("td");
-      var calle = document.createElement("div"); calle.textContent = i.direccion;
-      var bar = document.createElement("div"); bar.className = "td-desc"; bar.textContent = i.barrio;
-      tdDir.appendChild(calle); tdDir.appendChild(bar);
-      tr.appendChild(tdDir);
-
+      tr.appendChild(RU.td(i.direccion));
       tr.appendChild(RU.celdaFoto(i, visor && visor.abrir));
       tr.appendChild(RU.celdaEstado(i));
       cuerpoTus.appendChild(tr);
     });
-
     vacioTus.hidden = lista.length > 0;
-    var pendientes = datos.misInformes.filter(function(i){ return i.estado !== "resuelta"; }).length;
-    resumenTus.textContent = datos.misInformes.length + " informes tuyos · " + pendientes + " sin resolver.";
+    resumenTus.textContent = informes.length + " informes tuyos · " +
+      informes.filter(function(i){ return i.estado !== "resuelta"; }).length + " sin resolver.";
   }
 
-  render();
+  RU.apiFetch("../../api/CRUB/Listar_incidencias_code.php")
+    .then(function(json){
+      informes = (json.lista_incidentes || [])
+        .filter(function(item){ return Number(item.ID_USUARIO) === Number(localStorage.getItem("id_usuario")); })
+        .map(RU.normalizarIncidente);
+      render();
+    })
+    .catch(function(error){ resumenTus.textContent = error.message; vacioTus.hidden = false; });
 })();

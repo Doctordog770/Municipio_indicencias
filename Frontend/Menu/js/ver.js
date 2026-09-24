@@ -3,7 +3,7 @@
 
   RU.inicializarTopbar();
   var visor = RU.inicializarVisor();
-  var datos = RU.cargarDatos();
+  var datos = { comunidad: [] };
 
   var cuerpoCom = document.getElementById("cuerpoComunidad");
   var vacioCom = document.getElementById("vacioComunidad");
@@ -96,5 +96,13 @@
       : "Últimos reportes cargados por los vecinos · " + lista.length + " informes.";
   }
 
-  render();
+  RU.apiFetch("../../api/CRUB/Listar_incidencias_code.php")
+    .then(function(json){
+      datos.comunidad = (json.lista_incidentes || []).map(RU.normalizarIncidente);
+      render();
+    })
+    .catch(function(error){
+      resumenCom.textContent = error.message;
+      render();
+    });
 })();

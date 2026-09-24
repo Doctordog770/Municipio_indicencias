@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="comunidad">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de administración — Reporte Urbano</title>
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="menu_opciones.html"><span class="brand-mark">⚙</span><span class="brand-text"><strong>REPORTE URBANO</strong><span>Panel de administración</span></span></a>
+    <div class="user-menu"><button class="user-btn" id="btnUsuario" type="button"><span class="avatar">?</span><span class="user-name">Cargando...</span><span>▾</span></button>
+      <div class="dropdown" id="menuUsuario" hidden><div class="dropdown-head"><strong>Cargando...</strong><span>Cuenta autenticada</span></div><button type="button" id="btnSalir">⏻ Cerrar sesión</button></div>
+    </div>
+  </div>
+</header>
+<main class="vista">
+  <div class="seccion-head"><h2>PANEL DE ADMINISTRACIÓN</h2><a class="btn-volver" href="menu_opciones.html">← Volver al menú</a><p>Gestioná todos los informes, su estado y eliminación.</p></div>
+  <div class="panel">
+    <div class="barra"><input type="search" id="buscarAdmin" class="crece" placeholder="Buscar por incidente o ubicación"><select id="filtroAdmin"><option value="">Todos los estados</option><option value="pendiente">Pendiente</option><option value="proceso">En proceso</option><option value="resuelta">Resuelta</option></select></div>
+    <div class="tabla-scroll"><table><thead><tr><th>N.º</th><th>Fecha</th><th>Incidente</th><th>Ubicación</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="cuerpoAdmin"></tbody></table></div>
+    <p class="vacio" id="vacioAdmin" hidden>No hay informes que coincidan.</p>
+    <p id="estadoAdmin" class="form-estado"></p>
+  </div>
+</main>
+<script src="js/comun.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
