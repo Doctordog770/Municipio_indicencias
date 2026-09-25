@@ -2,15 +2,7 @@
   "use strict";
 
   function usuarioEsAdmin(){
-    try {
-      var token = localStorage.getItem("token");
-      var partePayload = token && token.split(".")[1];
-      var base64 = partePayload.replace(/-/g, "+").replace(/_/g, "/");
-      var payload = JSON.parse(atob(base64 + "===".slice((base64.length + 3) % 4)));
-      return String(payload.ROL || "").trim().toLowerCase() === "admin";
-    } catch (error) {
-      return false;
-    }
+    return String(localStorage.getItem("rol") || "").trim().toLowerCase() === "admin";
   }
 
   if (!usuarioEsAdmin()) {

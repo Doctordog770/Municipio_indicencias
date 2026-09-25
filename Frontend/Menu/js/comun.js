@@ -203,6 +203,8 @@ var RU = (function(){
     var menuUsuario = document.getElementById("menuUsuario");
     if (!btnUsuario || !menuUsuario) return;
 
+    cargarUsuario();
+
     btnUsuario.addEventListener("click", function(e){
       e.stopPropagation();
       var abierto = !menuUsuario.hidden;
@@ -242,6 +244,38 @@ var RU = (function(){
     }
   }
 
+  async function cargarUsuario(){
+    var token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      var respuesta = await fetch("../../api/augh/devolver_nombre.php", {
+        method: "GET",
+        headers: { "Authorization": "Bearer " + token }
+      });
+      var usuario = await respuesta.json();
+      if (!respuesta.ok || !usuario.ok) return;
+
+      var nombreCompleto = [usuario.NOMBRE, usuario.APELLIDO]
+        .filter(function(parte){ return typeof parte === "string" && parte.trim(); })
+        .join(" ");
+      if (!nombreCompleto) return;
+
+      document.querySelectorAll(".user-name, .dropdown-head strong").forEach(function(elemento){
+        elemento.textContent = nombreCompleto;
+      });
+
+      var avatar = document.querySelector(".user-btn .avatar");
+      if (avatar){
+        avatar.textContent = nombreCompleto.split(/\s+/).slice(0, 2)
+          .map(function(parte){ return parte.charAt(0).toLocaleUpperCase("es"); })
+          .join("");
+      }
+    } catch (error) {
+      console.error("No se pudo cargar el nombre del usuario.", error);
+    }
+  }
+
   return {
     FOTO_DEFECTO: FOTO_DEFECTO,
     ZONAS: ZONAS,
@@ -259,6 +293,7 @@ var RU = (function(){
     celdaEstado: celdaEstado,
     celdaFoto: celdaFoto,
     inicializarVisor: inicializarVisor,
-    inicializarTopbar: inicializarTopbar
+    inicializarTopbar: inicializarTopbar,
+    cargarUsuario: cargarUsuario
   };
 })();
