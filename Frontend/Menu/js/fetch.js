@@ -1,3 +1,10 @@
+const API_BASE = "../../api/";
+
+function resolverRuta(path) {
+    if (/^https?:\/\//.test(path) || path.startsWith("/")) return path;
+    return path.replace(/^\.\.\/\.\.\/api\//, API_BASE);
+}
+
  export async function fetch_endpoints(formulario,path){
     
     const data = new FormData(formulario);
@@ -5,7 +12,7 @@
     const token = localStorage.getItem('token');
     const headers = token ? { 'Authorization': 'Bearer ' + token } : {};
 
-    const respuesta = await fetch(path, {
+    const respuesta = await fetch(resolverRuta(path), {
         method: 'POST',
         headers: headers,
         body: data
@@ -17,17 +24,11 @@
 }
 
 export async function fetch_autenticado(path, method = 'GET') {
-
     const token = localStorage.getItem('token');
-
-    const respuesta = await fetch(path, {
+    const respuesta = await fetch(resolverRuta(path), {
         method: method,
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
+        headers: token ? { 'Authorization': 'Bearer ' + token } : {}
     });
 
-    var json = await respuesta.json();
-
-    return json;
+    return respuesta.json();
 }

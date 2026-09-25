@@ -122,3 +122,10 @@ Authorization: Bearer <TOKEN>
 - Cambia la configuración predeterminada de MySQL antes de usar el sistema en
   un entorno real.
 - Valida y protege el acceso al servidor y a la base de datos en producción.
+
+## Integrantes 6to 3ra
+
+- Byron Bocanegra
+- Thiago Diaz
+- Ivan Acosta
+- Thiago Toranzo

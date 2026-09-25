@@ -4,7 +4,7 @@
 var RU = (function(){
   /* Todas las páginas del menú requieren una sesión válida. */
   if (!localStorage.getItem("token")) {
-    window.location.replace("../auth/SignInSignUp.html");
+    window.location.replace("SignInSignUp.html");
   }
   "use strict";
 
@@ -198,31 +198,6 @@ var RU = (function(){
   }
 
   /* ========= Barra superior: menú de usuario ========= */
-  function cargarUsuario(){
-    var token = localStorage.getItem("token");
-    if (!token) return;
-
-    fetch("../../api/augh/devolver_nombre.php", {
-      method: "GET",
-      headers: { "Authorization": "Bearer " + token }
-    })
-      .then(function(respuesta){ return respuesta.json(); })
-      .then(function(json){
-        if (!json.ok || !json.NOMBRE || !json.APELLIDO) return;
-
-        var nombreCompleto = json.NOMBRE + " " + json.APELLIDO;
-        var iniciales = json.NOMBRE.charAt(0) + json.APELLIDO.charAt(0);
-        var nombres = document.querySelectorAll(".user-name");
-        var dropdownNombres = document.querySelectorAll(".dropdown-head strong");
-        var avatares = document.querySelectorAll(".avatar");
-
-        nombres.forEach(function(elemento){ elemento.textContent = nombreCompleto; });
-        dropdownNombres.forEach(function(elemento){ elemento.textContent = nombreCompleto; });
-        avatares.forEach(function(elemento){ elemento.textContent = iniciales.toUpperCase(); });
-      })
-      .catch(function(){ /* conserva los datos visuales predeterminados */ });
-  }
-
   function inicializarTopbar(){
     var btnUsuario = document.getElementById("btnUsuario");
     var menuUsuario = document.getElementById("menuUsuario");
@@ -261,13 +236,10 @@ var RU = (function(){
         if (window.confirm("¿Querés cerrar la sesión?")){
           localStorage.removeItem("token");
           localStorage.removeItem("rol");
-          localStorage.removeItem("id_usuario");
-          window.location.href = "../auth/SignInSignUp.html";
+          window.location.href = "SignInSignUp.html";
         }
       });
     }
-
-    cargarUsuario();
   }
 
   return {
@@ -287,7 +259,6 @@ var RU = (function(){
     celdaEstado: celdaEstado,
     celdaFoto: celdaFoto,
     inicializarVisor: inicializarVisor,
-    inicializarTopbar: inicializarTopbar,
-    cargarUsuario: cargarUsuario
+    inicializarTopbar: inicializarTopbar
   };
 })();

@@ -20,13 +20,10 @@
   function obtenerIdUsuario(){
     var idGuardado = localStorage.getItem("id_usuario");
     if (idGuardado) return String(idGuardado);
-
     var token = localStorage.getItem("token");
     if (!token) return null;
-
     try {
-      var partePayload = token.split(".")[1];
-      var base64 = partePayload.replace(/-/g, "+").replace(/_/g, "/");
+      var base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
       while (base64.length % 4) base64 += "=";
       var payload = JSON.parse(atob(base64));
       return payload.ID_USUARIO ? String(payload.ID_USUARIO) : null;
@@ -35,53 +32,32 @@
     }
   }
 
-  function iconoIncidente(tipo){
-    var buscado = RU.normalizar(String(tipo || ""));
-    var encontrado = RU.INCIDENTES.find(function(incidente){
-      return RU.normalizar(incidente.nombre).indexOf(buscado) !== -1 ||
-             buscado.indexOf(RU.normalizar(incidente.nombre)) !== -1;
-    });
-    return encontrado ? encontrado.ic : "•";
-  }
-
-  function normalizarEstado(estado){
-    var estadoNormalizado = RU.normalizar(String(estado || "pendiente")).replace(/\s+/g, "_");
-    return estadoNormalizado === "en_proceso" ? "proceso" : estadoNormalizado;
-  }
-
-  function adaptarIncidente(incidente){
-    var ubicacion = incidente.UBICACION || "Sin ubicación";
-    var tipo = incidente.TIPO_INCIDENTE || "Incidente sin tipo";
-
-    return {
-      nro: "INF-" + incidente.ID_INCIDENTE,
-      fecha: incidente.FECHA_CREACION,
-      incidente: tipo,
-      ic: iconoIncidente(tipo),
-      direccion: ubicacion,
-      barrio: ubicacion,
-      descripcion: incidente.DETALLES || "Sin detalles",
-      foto: incidente.IMAGEN || null,
-      estado: normalizarEstado(incidente.ESTADO)
-    };
-  }
-
   async function cargarInformes(){
     try {
-      var moduloFetch = await import("../../assets/js/fetch.js");
-      var respuesta = await moduloFetch.fetch_autenticado(
-        "../../api/CRUB/Listar_incidencias_code.php",
-        "POST"
-      );
+      var moduloFetch = await import("./fetch.js");
+      var respuesta = await moduloFetch.fetch_autenticado("../../api/CRUB/Listar_incidencias_code.php", "POST");
       var idUsuario = obtenerIdUsuario();
-
       if (!respuesta.ok || !Array.isArray(respuesta.lista_incidentes) || !idUsuario) {
         throw new Error(respuesta.mensaje || "No se pudieron cargar tus informes.");
       }
-
       datos.misInformes = respuesta.lista_incidentes
         .filter(function(incidente){ return String(incidente.ID_USUARIO) === idUsuario; })
-        .map(adaptarIncidente);
+        .map(function(incidente){
+          var ubicacion = incidente.UBICACION || "Sin ubicación";
+          var tipo = incidente.TIPO_INCIDENTE || "Incidente sin tipo";
+          var estado = RU.normalizar(String(incidente.ESTADO || "pendiente")).replace(/\s+/g, "_");
+          return {
+            nro: "INF-" + incidente.ID_INCIDENTE,
+            fecha: incidente.FECHA_CREACION,
+            incidente: tipo,
+            ic: "•",
+            direccion: ubicacion,
+            barrio: ubicacion,
+            descripcion: incidente.DETALLES || "Sin detalles",
+            foto: incidente.IMAGEN || null,
+            estado: estado === "en_proceso" ? "proceso" : estado
+          };
+        });
       render();
     } catch (error) {
       cuerpoTus.innerHTML = "";

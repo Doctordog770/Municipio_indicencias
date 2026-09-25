@@ -1,4 +1,4 @@
-import { fetch_endpoints } from "../../assets/js/fetch.js";
+import { fetch_endpoints } from "./fetch.js";
 
 const formulario = document.getElementById("form");
 const detalles = document.getElementById("detalles");

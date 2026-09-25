@@ -7,10 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/crear.css">
 </head>
 <body>
 
+<!-- La cabecera muestra la marca y las opciones del usuario. -->
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="menu_opciones.html">
@@ -44,6 +45,7 @@
 </header>
 
 <main class="vista">
+  <!-- Esta sección presenta el formulario para crear un informe. -->
   <div class="seccion-head">
     <h2>CREAR UN INFORME</h2>
     <a class="btn-volver" href="menu_opciones.html">← Volver al menú</a>
@@ -51,7 +53,9 @@
   </div>
 
   <div class="panel">
-    <form id="formInforme" novalidate>
+      <!-- El formulario reúne la ubicación, el incidente, la descripción y la foto. -->
+      <form id="formInforme" novalidate>
+        <input type="hidden" id="tipoIncidenteApi" name="tipo_incidente">
       <div class="fila">
         <div class="campo" id="campo-direccion">
           <label for="direccion">Dónde sucedió</label>
@@ -60,7 +64,7 @@
         </div>
         <div class="campo">
           <label for="barrio">Barrio o localidad</label>
-          <select id="barrio"></select>
+          <select id="barrio" name="ubicacion"></select>
         </div>
       </div>
 
@@ -86,7 +90,7 @@
 
       <div class="campo" id="campo-descripcion">
         <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" maxlength="400" placeholder="Describí la situación: desde cuándo pasa, si es peligroso, qué se ve..."></textarea>
+        <textarea id="descripcion" name="detalles" maxlength="400" placeholder="Describí la situación: desde cuándo pasa, si es peligroso, qué se ve..."></textarea>
         <p class="msg-error" id="err-descripcion"></p>
       </div>
 
@@ -115,9 +119,11 @@
 </main>
 
 <footer class="footer">
+  <!-- El pie identifica al equipo responsable del proyecto. -->
   <p>Jefatura de Área Técnica · E.E.S.T. N.º 6 "Chacabuco" — Morón</p>
 </footer>
 
+<!-- Estos scripts controlan el menú común y el envío del formulario. -->
 <script src="js/comun.js"></script>
 <script src="js/crear.js"></script>
 

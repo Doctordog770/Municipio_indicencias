@@ -1,3 +1,4 @@
+/* Ajusta el panel que contiene las herramientas administrativas. */
 .admin-panel{ padding:22px; }
 .admin-toolbar{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px; }
 .admin-toolbar strong{ font-family:"Barlow Condensed",sans-serif; font-size:25px; }

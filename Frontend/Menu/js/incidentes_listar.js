@@ -1,8 +1,8 @@
-import { fetch_endpoints } from "../../assets/js/fetch.js";
+import { fetch_endpoints } from "./fetch.js";
 
 const token = localStorage.getItem('token');
 if (!token) {
-    window.location.href = "../auth/SignInSignUp.html";
+    window.location.href = "SignInSignUp.html";
 }
 
 const contenedor = document.getElementById("listaIncidentes");

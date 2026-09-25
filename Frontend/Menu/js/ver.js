@@ -24,29 +24,21 @@
     if (e.key === "Enter"){ e.preventDefault(); render(); }
   });
 
-  function iconoIncidente(tipo){
-    var buscado = RU.normalizar(String(tipo || ""));
-    var encontrado = RU.INCIDENTES.find(function(incidente){
-      return RU.normalizar(incidente.nombre).indexOf(buscado) !== -1 ||
-             buscado.indexOf(RU.normalizar(incidente.nombre)) !== -1;
-    });
-    return encontrado ? encontrado.ic : "•";
-  }
-
-  function normalizarEstado(estado){
-    var estadoNormalizado = RU.normalizar(String(estado || "pendiente")).replace(/\s+/g, "_");
-    return estadoNormalizado === "en_proceso" ? "proceso" : estadoNormalizado;
-  }
-
   function adaptarIncidente(incidente){
     var ubicacion = incidente.UBICACION || "Sin ubicación";
     var tipo = incidente.TIPO_INCIDENTE || "Incidente sin tipo";
+    var buscado = RU.normalizar(tipo);
+    var encontrado = RU.INCIDENTES.find(function(item){
+      return RU.normalizar(item.nombre).indexOf(buscado) !== -1 ||
+             buscado.indexOf(RU.normalizar(item.nombre)) !== -1;
+    });
+    var estado = RU.normalizar(String(incidente.ESTADO || "pendiente")).replace(/\s+/g, "_");
 
     return {
       nro: "INF-" + incidente.ID_INCIDENTE,
       fecha: incidente.FECHA_CREACION,
       incidente: tipo,
-      ic: iconoIncidente(tipo),
+      ic: encontrado ? encontrado.ic : "•",
       direccion: ubicacion,
       barrio: ubicacion,
       vecino: incidente.NOMBRE && incidente.APELLIDO
@@ -54,22 +46,17 @@
         : "Usuario #" + incidente.ID_USUARIO,
       descripcion: incidente.DETALLES || "Sin detalles",
       foto: incidente.IMAGEN || null,
-      estado: normalizarEstado(incidente.ESTADO)
+      estado: estado === "en_proceso" ? "proceso" : estado
     };
   }
 
   async function cargarIncidentes(){
     try {
-      var moduloFetch = await import("../../assets/js/fetch.js");
-      var respuesta = await moduloFetch.fetch_autenticado(
-        "../../api/CRUB/Listar_incidencias_code.php",
-        "POST"
-      );
-
+      var moduloFetch = await import("./fetch.js");
+      var respuesta = await moduloFetch.fetch_autenticado("../../api/CRUB/Listar_incidencias_code.php", "POST");
       if (!respuesta.ok || !Array.isArray(respuesta.lista_incidentes)) {
         throw new Error(respuesta.mensaje || "No se pudieron cargar los informes.");
       }
-
       datos.comunidad = respuesta.lista_incidentes.map(adaptarIncidente);
       render();
     } catch (error) {

@@ -1,7 +1,4 @@
-/* ============================================================
-   Paleta y variables — igual que SignInSignUp.html, para que
-   toda la app comparta la misma identidad visual.
-   ============================================================ */
+/* Define los colores y medidas compartidos por la aplicación. */
 :root{
   --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#FBECEC;
   --ink:#1A1A1A; --ink-soft:#7A4A4A; --border:#E8C9C9;
@@ -37,9 +34,7 @@ button{ font-family:inherit; cursor:pointer; }
 :focus-visible{ outline:3px solid var(--tema); outline-offset:2px; }
 @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
 
-/* ============================================================
-   Barra superior — se reutiliza en todas las páginas internas
-   ============================================================ */
+/* Organiza la barra superior de las páginas internas. */
 .topbar{
   display:flex; align-items:center; justify-content:space-between;
   padding:16px 32px; background:var(--surface); border-bottom:1px solid var(--border);
@@ -62,9 +57,7 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .btn-salir:hover{ border-color:var(--tema); color:var(--tema); }
 
-/* ============================================================
-   Menú principal
-   ============================================================ */
+/* Organiza las tarjetas del menú principal. */
 .menu-envoltorio{ max-width:920px; margin:0 auto; padding:56px 24px 40px; }
 .menu-encabezado{ text-align:center; margin-bottom:40px; }
 .menu-encabezado h1{
@@ -106,9 +99,7 @@ button{ font-family:inherit; cursor:pointer; }
 .menu-card-flecha svg{ width:15px; height:15px; transition:transform .2s ease; }
 .menu-card:hover .menu-card-flecha svg{ transform:translateX(3px); }
 
-/* ============================================================
-   Listado de incidentes
-   ============================================================ */
+/* Da formato a la lista de incidentes y sus estados. */
 .pagina-envoltorio{ max-width:920px; margin:0 auto; padding:40px 24px 60px; }
 .pagina-titulo{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
 .pagina-titulo h1{
@@ -149,9 +140,7 @@ button{ font-family:inherit; cursor:pointer; }
 .badge-estado.resuelto{ background:#E6EFE6; color:#2E5E2E; border:1px solid #C9E0C9; }
 .badge-estado.otro{ background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--border); }
 
-/* ============================================================
-   Formulario "crear incidente"
-   ============================================================ */
+/* Da formato al formulario para crear un incidente. */
 .form-tarjeta{
   background:var(--surface); border:1px solid var(--border); border-radius:16px;
   padding:32px; max-width:520px; margin:0 auto;

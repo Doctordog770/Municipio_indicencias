@@ -1,0 +1,209 @@
+/* Define los estilos de la página para crear informes. */
+
+:root{
+  --bg:#ECEDE8; --surface:#FFFFFF; --surface-2:#F5F5F1;
+  --ink:#1C1F24; --ink-soft:#5B6470; --border:#D3D5CE;
+  --radius:6px;
+
+  --verde:#1E7A46; --verde-oscuro:#14522F;
+  --rojo:#B4231F;  --rojo-oscuro:#7C1512;
+  --amarillo:#D99114; --amarillo-oscuro:#8A5A05;
+
+  --tema:#2E3440; --tema-oscuro:#1C1F24; --tema-texto:#FFFFFF;
+}
+
+:root[data-tema="crear"]{    --tema:var(--verde);    --tema-oscuro:var(--verde-oscuro);    --tema-texto:#FFF; }
+
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme: dark){
+    --bg:#12151A; --surface:#1A1F26; --surface-2:#212832;
+    --ink:#E8EAE4; --ink-soft:#A3ABB5; --border:#333C46;
+  }
+}
+
+:root[data-theme="dark"]{
+  --bg:#12151A; --surface:#1A1F26; --surface-2:#212832;
+  --ink:#E8EAE4; --ink-soft:#A3ABB5; --border:#333C46;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{ margin:0; padding:0; }
+
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height:1.5; min-height:100vh;
+}
+
+button{ font-family:inherit; cursor:pointer; }
+
+:focus-visible{ outline:3px solid var(--tema); outline-offset:2px; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; animation:none !important; }
+}
+
+/* Organiza la barra superior y el menú del usuario. */
+
+.topbar{ background:var(--tema-oscuro); color:#fff; transition:background-color .25s ease; }
+
+.topbar-inner{ max-width:1120px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+
+.brand{ display:flex; align-items:center; gap:12px; background:none; border:none; color:#fff; padding:0; text-align:left; text-decoration:none; }
+
+.brand-mark{ width:34px; height:34px; border-radius:4px; background:var(--tema); display:flex; align-items:center; justify-content:center; font-size:19px; transition:background-color .25s ease; }
+
+.brand-text{ display:flex; flex-direction:column; line-height:1.2; }
+
+.brand-text strong{ font-family:"Barlow Condensed",sans-serif; font-size:24px; font-weight:700; letter-spacing:.4px; }
+
+.brand-text span{ font-size:12.5px; opacity:.72; }
+
+.user-menu{ position:relative; }
+
+.user-btn{ display:flex; align-items:center; gap:9px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); color:#fff; border-radius:999px; padding:6px 12px 6px 6px; font-size:13.5px; font-weight:600; }
+
+.user-btn:hover{ background:rgba(255,255,255,.18); }
+
+.avatar{ width:28px; height:28px; border-radius:50%; background:var(--tema); display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; transition:background-color .25s ease; }
+
+.user-name{ display:inline; }
+
+@media (max-width:560px){
+  .user-name{ display:none; }
+}
+
+.dropdown{ position:absolute; right:0; top:calc(100% + 8px); background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); min-width:210px; padding:6px; z-index:20; box-shadow:0 10px 24px rgba(0,0,0,.18); }
+
+.dropdown[hidden]{ display:none; }
+
+.dropdown-head{ padding:10px 12px 8px; border-bottom:1px solid var(--border); margin-bottom:6px; }
+
+.dropdown-head strong{ display:block; font-size:14px; }
+
+.dropdown-head span{ font-size:12.5px; color:var(--ink-soft); }
+
+.dropdown button{ display:flex; align-items:center; gap:9px; width:100%; background:none; border:none; color:var(--ink); padding:9px 12px; border-radius:4px; font-size:13.5px; text-align:left; }
+
+.dropdown button:hover{ background:var(--surface-2); }
+
+.dropdown button.salir{ color:var(--rojo); font-weight:600; }
+
+/* Define el ancho y el espacio principal de la página. */
+
+.vista{ max-width:1120px; margin:0 auto; padding:40px 24px 64px; }
+
+/* Define elementos visuales auxiliares del menú. */
+
+.luz{ width:104px; height:104px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:40px; color:#fff; border:7px solid var(--ink); }
+
+/* Da formato al título y al enlace de regreso. */
+
+.seccion-head{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; background:var(--tema); color:var(--tema-texto); border-radius:var(--radius); padding:18px 22px; margin-bottom:26px; transition:background-color .25s ease; }
+
+.seccion-head h2{ font-family:"Barlow Condensed",sans-serif; font-size:32px; font-weight:700; margin:0; letter-spacing:.4px; flex:1; }
+
+.seccion-head p{ margin:2px 0 0; font-size:13.5px; opacity:.9; width:100%; }
+
+.btn-volver{ background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.34); color:var(--tema-texto); border-radius:4px; padding:7px 13px; font-size:13px; font-weight:600; text-decoration:none; display:inline-block; }
+
+.btn-volver:hover{ background:rgba(255,255,255,.26); }
+
+.panel{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:26px; }
+
+.panel + .panel{ margin-top:22px; }
+
+/* Organiza los campos, controles y mensajes del formulario. */
+
+.campo{ margin-bottom:18px; }
+
+.fila{ display:flex; gap:16px; flex-wrap:wrap; }
+
+.fila .campo{ flex:1; min-width:200px; }
+
+label{ display:block; font-size:13px; font-weight:600; margin-bottom:6px; }
+
+.sub{ font-weight:400; color:var(--ink-soft); }
+
+input[type="text"], input[type="search"], select, textarea{
+  width:100%; background:var(--surface-2); border:1px solid var(--border);
+  border-radius:4px; color:var(--ink); padding:10px 12px; font-size:14px; font-family:inherit;
+}
+
+textarea{ resize:vertical; min-height:96px; }
+
+.campo.error input, .campo.error select, .campo.error textarea{ border-color:var(--rojo); background:rgba(180,35,31,.07); }
+
+.msg-error{ color:var(--rojo); font-size:12.5px; margin:6px 0 0; min-height:1em; font-weight:500; }
+
+.combo{ position:relative; }
+
+.combo-lista{ position:absolute; left:0; right:0; top:calc(100% + 4px); z-index:15; background:var(--surface); border:1px solid var(--border); border-radius:4px; max-height:240px; overflow-y:auto; padding:4px; box-shadow:0 10px 24px rgba(0,0,0,.14); }
+
+.combo-lista[hidden]{ display:none; }
+
+.combo-op{ display:flex; align-items:center; gap:10px; width:100%; background:none; border:none; color:var(--ink); padding:9px 10px; border-radius:4px; font-size:13.5px; text-align:left; }
+
+.combo-op:hover, .combo-op.activa{ background:var(--surface-2); }
+
+.combo-op .ic{ font-size:17px; }
+
+.combo-op .cat{ margin-left:auto; font-size:11.5px; color:var(--ink-soft); }
+
+.combo-vacio{ padding:12px 10px; font-size:13px; color:var(--ink-soft); }
+
+.elegido{ display:inline-flex; align-items:center; gap:8px; margin-top:8px; background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:5px 8px 5px 12px; font-size:13px; font-weight:600; }
+
+.elegido[hidden]{ display:none; }
+
+.elegido button{ background:none; border:none; color:var(--ink-soft); font-size:15px; line-height:1; padding:2px 4px; }
+
+.dropzone{ border:2px dashed var(--border); border-radius:var(--radius); padding:22px; text-align:center; background:var(--surface-2); }
+
+.dropzone p{ margin:6px 0 0; font-size:13px; color:var(--ink-soft); }
+
+.dropzone .ico{ font-size:28px; }
+
+.btn-archivo{ margin-top:12px; background:var(--surface); border:1px solid var(--border); color:var(--ink); border-radius:4px; padding:8px 14px; font-size:13px; font-weight:600; }
+
+.preview{ display:flex; align-items:center; gap:14px; margin-top:14px; }
+
+.preview[hidden]{ display:none; }
+
+.preview img{ width:92px; height:92px; object-fit:cover; border-radius:4px; border:1px solid var(--border); }
+
+.preview-info{ font-size:13px; }
+
+.preview-info span{ display:block; color:var(--ink-soft); font-size:12.5px; }
+
+.btn-enviar{ background:var(--tema); color:var(--tema-texto); border:none; border-radius:4px; padding:13px 26px; font-size:15px; font-weight:700; transition:background-color .25s ease; }
+
+.btn-enviar:hover{ background:var(--tema-oscuro); }
+
+.form-estado{ font-size:13.5px; margin:14px 0 0; min-height:1.2em; font-weight:600; color:var(--verde); }
+
+/* Da formato a la vista previa de la imagen. */
+
+.footer{ max-width:1120px; margin:0 auto; padding:0 24px 32px; color:var(--ink-soft); font-size:12.5px; }
+
+/* Controla la imagen del logo que aparece en la cabecera. */
+.brand-mark:has(.logo){
+  position:relative; width:46px; height:46px; border-radius:12px; overflow:hidden;
+  border:2px solid rgba(255,255,255,.9); background:#fff; font-size:0;
+}
+.logo{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+  opacity:0; transition:opacity .25s ease;
+}
+.logo.rojo{ opacity:1; }
+
+:root[data-tema="tus"] .logo.amarillo,
+:root:has(.señal.amarilla:is(:hover,:focus-visible)) .logo.amarillo{ opacity:1; }
+:root[data-tema="tus"] .logo.rojo,
+:root:has(.señal.amarilla:is(:hover,:focus-visible)) .logo.rojo{ opacity:0; }
+
+:root[data-tema="crear"] .logo.verde,
+:root:has(.señal.verde:is(:hover,:focus-visible)) .logo.verde{ opacity:1; }
+:root[data-tema="crear"] .logo.rojo,
+:root:has(.señal.verde:is(:hover,:focus-visible)) .logo.rojo{ opacity:0; }

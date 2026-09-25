@@ -7,10 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/menu_opciones.css">
 </head>
 <body>
 
+<!-- La cabecera muestra la marca y las opciones del usuario. -->
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="menu_opciones.html">
@@ -44,11 +45,13 @@
 </header>
 
 <main class="vista" id="vistaMenu">
+  <!-- Este encabezado explica el objetivo del menú principal. -->
   <div class="menu-head">
     <h1>REPORTE URBANO</h1>
     <p>Avisale al municipio qué está pasando en tu barrio. Elegí una opción para empezar.</p>
   </div>
 
+  <!-- Estas opciones llevan a las acciones principales de la aplicación. -->
   <div class="señales">
   <a class="señal amarilla" href="tus.html">
     <img src="imgs/verInformes.png" alt="">
@@ -73,23 +76,17 @@
       
     </div>
   </a>
-
-  <a class="señal admin" id="opcionAdmin" href="menu_admin.html" hidden>
-    <img src="imgs/verTusInformes.png" alt="">
-    <div class="señal-texto">
-      <h2>ADMIN</h2>
-      <p>Gestionar estados y eliminar informes.</p>
-    </div>
-  </a>
 </div>
 </main>
 
 <footer class="footer">
+  <!-- El pie identifica al equipo responsable del proyecto. -->
   <p>Jefatura de Área Técnica · E.E.S.T. N.º 6 "Chacabuco" — Morón</p>
 </footer>
 
+<!-- Estos scripts controlan el menú común y sus acciones. -->
 <script src="js/comun.js"></script>
-<script type="module" src="js/menu.js"></script>
+<script src="js/menu_opciones.js"></script>
 
 </body>
 </html>

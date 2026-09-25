@@ -1,21 +1,18 @@
-if (window.RU) {
-    window.RU.inicializarTopbar();
+// Guard de sesión + botón "Cerrar sesión" para las páginas de incidentes/.
+// Todas las páginas viven en html/, así que la ruta al login es siempre la misma.
+const rutaLogin = "SignInSignUp.html";
+
+// Si no hay sesión iniciada, no tiene sentido mostrar la página.
+const token = localStorage.getItem('token');
+if (!token) {
+    window.location.href = rutaLogin;
 }
 
-const opcionAdmin = document.getElementById("opcionAdmin");
-if (opcionAdmin) {
-    opcionAdmin.hidden = true;
-
-    try {
-        const token = localStorage.getItem("token");
-        const partePayload = token && token.split(".")[1];
-        const base64 = partePayload.replace(/-/g, "+").replace(/_/g, "/");
-        const payload = JSON.parse(atob(base64 + "===".slice((base64.length + 3) % 4)));
-
-        if (String(payload.ROL || "").trim().toLowerCase() === "admin") {
-            opcionAdmin.hidden = false;
-        }
-    } catch (error) {
-        opcionAdmin.hidden = true;
-    }
+const btnSalir = document.getElementById("btnSalir");
+if (btnSalir) {
+    btnSalir.addEventListener('click', () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('rol');
+        window.location.href = rutaLogin;
+    });
 }

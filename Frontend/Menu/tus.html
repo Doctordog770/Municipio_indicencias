@@ -7,10 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/tus.css">
 </head>
 <body>
 
+<!-- La cabecera muestra la marca y las opciones del usuario. -->
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="menu_opciones.html">
@@ -44,6 +45,7 @@
 </header>
 
 <main class="vista">
+  <!-- Esta sección presenta los informes creados por el usuario. -->
   <div class="seccion-head">
     <h2>TUS INFORMES</h2>
     <a class="btn-volver" href="menu_opciones.html">← Volver al menú</a>
@@ -51,6 +53,7 @@
   </div>
 
   <div class="panel">
+    <!-- Esta barra permite buscar, filtrar y ordenar los informes. -->
     <div class="barra">
       <input type="search" id="buscarTus" class="crece" placeholder="Buscar por incidente o dirección" aria-label="Buscar en tus informes">
       <select id="filtroEstadoTus" aria-label="Filtrar por estado">
@@ -80,7 +83,7 @@
   </div>
 </main>
 
-<!-- ============ VISOR DE IMAGEN ============ -->
+<!-- Este visor muestra en grande la imagen seleccionada. -->
 <div class="visor" id="visor" hidden role="dialog" aria-modal="true" aria-labelledby="visorTitulo">
   <div class="visor-caja">
     <div class="visor-top">
@@ -96,9 +99,11 @@
 </div>
 
 <footer class="footer">
+  <!-- El pie identifica al equipo responsable del proyecto. -->
   <p>Jefatura de Área Técnica · E.E.S.T. N.º 6 "Chacabuco" — Morón</p>
 </footer>
 
+<!-- Estos scripts controlan el menú común y la lista de informes. -->
 <script src="js/comun.js"></script>
 <script src="js/tus.js"></script>
 

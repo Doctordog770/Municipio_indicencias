@@ -1,0 +1,126 @@
+/* Define los estilos de inicio de sesión y registro. */
+
+  :root{
+    --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#FBECEC;
+    --ink:#1A1A1A; --ink-soft:#7A4A4A; --border:#E8C9C9;
+    --radius:6px;
+
+    --verde:#8C1616; --verde-oscuro:#5E0F0F;
+    --rojo:#C81E1E;  --rojo-oscuro:#8C1414;
+    --amarillo:#B4231F; --amarillo-oscuro:#7C1512;
+
+    --tema:#C81E1E; --tema-oscuro:#8C1414; --tema-texto:#FFFFFF;
+  }
+
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --bg:#1A1010; --surface:#241414; --surface-2:#2E1818;
+      --ink:#F5E8E8; --ink-soft:#C99; --border:#4A2424;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1A1010; --surface:#241414; --surface-2:#2E1818;
+    --ink:#F5E8E8; --ink-soft:#C99; --border:#4A2424;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height:1.5; min-height:100vh;
+  }
+  button{ font-family:inherit; cursor:pointer; }
+  :focus-visible{ outline:3px solid var(--tema); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+
+  /* Organiza los formularios de acceso y registro. */
+  .auth-envoltorio{ display:flex; align-items:center; justify-content:center; min-height:100vh; padding:0; }
+  .auth-contenedor{
+    position:relative; width:100%; max-width:100%; height:100vh; min-height:100vh;
+    background:var(--surface); border-radius:0; overflow:hidden;
+    box-shadow:none;
+  }
+
+  .formulario-login, .formulario-registro{
+    position:absolute; top:0; left:0; width:50%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:4px; padding:0 45px; overflow-y:auto; -webkit-overflow-scrolling:touch;
+    transition:transform .6s ease-in-out, opacity .5s ease-in-out;
+  }
+  .formulario-login{ z-index:2; opacity:1; transform:translateX(0%); }
+  .formulario-registro{ z-index:1; opacity:0; pointer-events:none; transform:translateX(0%); justify-content:flex-start; padding:48px 45px; }
+
+  .auth-contenedor.derecha .formulario-login{ transform:translateX(100%); opacity:0; z-index:1; pointer-events:none; }
+  .auth-contenedor.derecha .formulario-registro{ transform:translateX(100%); opacity:1; z-index:2; pointer-events:auto; }
+
+  .auth-form h2{ font-family:"Barlow Condensed",sans-serif; font-size:30px; font-weight:700; margin:0 0 14px; letter-spacing:-.02em; }
+  .auth-form .sub{ display:block; font-size:12px; margin-bottom:14px; color:var(--ink-soft); }
+  .auth-campo{ width:300px; max-width:100%; margin-bottom:12px; }
+  .auth-campo label{ display:block; font-size:11.5px; font-weight:600; margin-bottom:5px; color:var(--ink-soft); }
+  .auth-campo-caja{
+    display:flex; align-items:center; gap:10px; width:100%; height:46px;
+    background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:0 16px;
+  }
+  .auth-campo-caja svg{ width:17px; height:17px; color:var(--ink-soft); flex-shrink:0; }
+  .auth-campo input{
+    border:none; outline:none; width:100%; height:100%; background:transparent;
+    color:var(--ink); font-family:inherit; font-size:14px; padding:0;
+  }
+  .auth-campo input::placeholder{ color:var(--ink-soft); }
+  .msg-auth{ color:var(--rojo-oscuro); font-size:12px; margin:5px 0 0; min-height:1em; font-weight:500; }
+  .btn-auth{
+    width:170px; height:46px; margin-top:8px; background:var(--tema); color:var(--tema-texto);
+    border:none; border-radius:23px; font-size:15px; font-weight:600;
+    transition:transform .15s ease, box-shadow .15s ease, background-color .25s ease;
+  }
+  .btn-auth:hover{ transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.2); }
+  .btn-auth:disabled{ opacity:.7; cursor:default; transform:none; box-shadow:none; }
+  .enlace-cambio{
+    display:none; margin-top:16px; background:none; border:none; color:var(--tema);
+    font-weight:600; font-size:13px; text-align:left; padding:0;
+  }
+
+  .auth-superposicion-env{
+    position:absolute; top:0; left:50%; width:50%; height:100%;
+    overflow:hidden; border-radius:0 24px 24px 0; z-index:10;
+    transition:transform .6s ease-in-out, border-radius .6s ease-in-out; transform:translateX(0%);
+  }
+  .auth-contenedor.derecha .auth-superposicion-env{ transform:translateX(-100%); border-radius:24px 0 0 24px; }
+
+  .auth-superposicion{
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:18px; padding:0 44px; text-align:center; color:#fff;
+    background:linear-gradient(160deg, var(--tema-oscuro), var(--tema));
+    transition:opacity .5s ease-in-out;
+  }
+
+  .auth-panel{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; text-align:center; }
+  .auth-panel h3{ font-family:"Barlow Condensed",sans-serif; font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0; }
+  .auth-panel p{ font-size:14px; line-height:1.6; opacity:.9; margin:0; }
+  .btn-auth-ghost{
+    background:transparent; border:2px solid #fff; color:#fff;
+    border-radius:23px; padding:10px 26px; font-size:13.5px; font-weight:700;
+  }
+  .btn-auth-ghost:hover{ background:rgba(255,255,255,.12); }
+
+  .auth-panel-izq{ opacity:1; pointer-events:auto; position:absolute; inset:0; }
+  .auth-contenedor.derecha .auth-panel-izq{ opacity:0; pointer-events:none; }
+  .auth-panel-der{ opacity:0; pointer-events:none; position:absolute; inset:0; }
+  .auth-contenedor.derecha .auth-panel-der{ opacity:1; pointer-events:auto; }
+
+  @media (max-width:720px){
+    .auth-contenedor{ width:100%; height:auto; min-height:100vh; border-radius:0; }
+    .auth-superposicion-env{ display:none; }
+    .formulario-login, .formulario-registro{
+      position:relative; width:100%; height:auto; min-height:100vh;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:40px 28px;
+      opacity:1 !important; pointer-events:auto !important; transform:none !important;
+    }
+    .formulario-registro{ display:none; }
+    .auth-contenedor.derecha .formulario-login{ display:none; }
+    .auth-contenedor.derecha .formulario-registro{ display:flex; }
+    .enlace-cambio{ display:block; }
+  }

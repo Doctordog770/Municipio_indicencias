@@ -1,7 +1,10 @@
 (function(){
   "use strict";
 
+  var fetchApi = null;
+
   RU.inicializarTopbar();
+  var datos = RU.cargarDatos();
 
   /* ========= Barrio ========= */
   var selectBarrio = document.getElementById("barrio");
@@ -171,35 +174,17 @@
       return;
     }
 
-    var tipoIncidente = seleccion.id === "otro" ? otro : seleccion.nombre;
-    var ubicacion = direccion + " - " + selectBarrio.value;
-    var datosEnvio = new FormData();
-    datosEnvio.append("tipo_incidente", tipoIncidente);
-    datosEnvio.append("detalles", descripcion);
-    datosEnvio.append("ubicacion", ubicacion);
+    document.getElementById("tipoIncidenteApi").value = seleccion.id === "otro" ? otro : seleccion.nombre;
 
-    var respuesta;
     try {
-      var token = localStorage.getItem("token");
-      var respuestaHttp = await fetch("../../api/CRUB/Crear_incidencia_code.php", {
-        method: "POST",
-        headers: { "Authorization": "Bearer " + token },
-        body: datosEnvio
-      });
-      respuesta = await respuestaHttp.json();
+      fetchApi = fetchApi || await import("./fetch.js");
+      var respuesta = await fetchApi.fetch_endpoints(form, "../../api/CRUB/Crear_incidencia_code.php");
+      if (!respuesta.ok) throw new Error(respuesta.mensaje || "No se pudo enviar el informe.");
     } catch (error) {
       estadoForm.style.color = "var(--rojo)";
-      estadoForm.textContent = "No se pudo conectar con el servidor. Intentá nuevamente.";
+      estadoForm.textContent = "No se pudo enviar el informe. Revisá tu sesión e intentá nuevamente.";
       return;
     }
-
-    if (!respuesta.ok) {
-      estadoForm.style.color = "var(--rojo)";
-      estadoForm.textContent = respuesta.mensaje || "No se pudo crear el informe.";
-      return;
-    }
-
-    var nro = "INF-" + respuesta.id_indidente;
 
     form.reset();
     seleccion = null;
@@ -209,7 +194,7 @@
     preview.hidden = true;
 
     estadoForm.style.color = "var(--verde)";
-    estadoForm.innerHTML = "Informe " + nro + " enviado. Ya aparece en \u201c<a href='tus.html' style='color:inherit'>Tus informes</a>\u201d.";
+    estadoForm.textContent = "Informe enviado correctamente. Ya podés verlo en tus informes.";
     window.setTimeout(function(){ estadoForm.textContent = ""; }, 8000);
   });
 })();
